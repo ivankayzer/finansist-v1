@@ -26,8 +26,19 @@
       </li>
       <p class="menu-label"></p>
       <li>
-        <nuxt-link to="/logout">Выйти</nuxt-link>
+        <a to="/logout" @click="logout">Выйти</a>
       </li>
     </ul>
   </aside>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
+

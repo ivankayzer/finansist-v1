@@ -3,9 +3,22 @@
 class UserController {
     async login({ request, auth }) {
         const { username, password } = request.all()
-        await auth.attempt(username, password)
 
-        return 'Logged in successfully'
+        try {
+            await auth.attempt(username, password)
+        } catch (error) {
+            return 'Missing or invalid jwt token'
+        }
+
+        const User = use('App/Models/User')
+
+        const user = User.query().where('username', username).first();
+        const token = await auth.generate(user);
+
+        return {
+            user,
+            token
+        }
     }
 
     async register({ request, auth }) {
@@ -16,6 +29,7 @@ class UserController {
         user.password = password;
         await user.save();
         const token = await auth.generate(user);
+
         return {
             user,
             token
@@ -26,7 +40,7 @@ class UserController {
         try {
             return await auth.getUser()
         } catch (error) {
-            response.send('Missing or invalid jwt token')
+            return 'Missing or invalid jwt token'
         }
     }
 }

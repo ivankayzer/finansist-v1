@@ -11,6 +11,9 @@ const store = () => new Vuex.Store({
     mutations: {
         setUser(state, data) {
             state.user = data;
+        },
+        removeUser(state) {
+            state.user = {};
         }
     },
     actions: {
@@ -27,6 +30,10 @@ const store = () => new Vuex.Store({
             axios.post('/getUser', token).then((response) => {
                 commit('setUser', response.data)
             })
+        },
+        logout({ commit }) {
+            commit('removeUser');
+            localStorage.removeItem('token');
         }
     }
 })
