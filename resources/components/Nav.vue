@@ -1,20 +1,32 @@
 <template>
   <aside class="menu">
-    <ul class="menu-list">
+    <ul class="menu-list" v-if="!Object.keys(this.$store.state.user).length">
       <li>
-        <a>Главная</a>
+        <nuxt-link to="/login">Войти</nuxt-link>
       </li>
       <li>
-        <a>Транзакции</a>
+        <nuxt-link to="/register">Регистрация</nuxt-link>
+      </li>
+    </ul>
+    <ul class="menu-list" v-if="Object.keys(this.$store.state.user).length">
+      <li>
+        <nuxt-link to="/">Главная</nuxt-link>
       </li>
       <li>
-        <a>Категории</a>
+        <nuxt-link to="/transactions">Транзакции</nuxt-link>
       </li>
       <li>
-        <a>Импорт</a>
+        <nuxt-link to="/categories">Категории</nuxt-link>
       </li>
       <li>
-        <a>Отчеты</a>
+        <nuxt-link to="/import">Импорт</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/reports">Отчеты</nuxt-link>
+      </li>
+      <p class="menu-label"></p>
+      <li>
+        <nuxt-link to="/logout">Выйти</nuxt-link>
       </li>
     </ul>
   </aside>

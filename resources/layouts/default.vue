@@ -4,6 +4,9 @@
       <div class="column is-one-quarter">
         <navigation/>
       </div>
+      <div class="column">
+        <nuxt/>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +21,14 @@ export default {
         { title: 'Home', icon: 'home', to: { name: 'index' } },
         { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } }
       ]
+    }
+  },
+  beforeMount() {
+    if (
+      !Object.keys(this.$store.state.user).length &&
+      localStorage.getItem('token')
+    ) {
+      this.$store.dispatch('getUser')
     }
   },
   components: {

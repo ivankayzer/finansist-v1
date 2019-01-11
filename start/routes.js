@@ -15,4 +15,7 @@
 
 const Route = use('Route')
 
+Route.post('/login', 'UserController.login')
+Route.post('/register', 'UserController.register')
+Route.post('/getUser', 'UserController.getUser')
 Route.any('*', 'NuxtController.render')

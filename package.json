@@ -11,8 +11,6 @@
     "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "nuxt": "^2.0.0",
     "@adonisjs/ace": "^4.0.7",
     "@adonisjs/auth": "^2.0.10",
     "@adonisjs/bodyparser": "^1.0.8",
@@ -23,12 +21,16 @@
     "@adonisjs/lucid": "^4.0.22",
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
+    "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
+    "mysql": "^2.16.0",
+    "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.2.1"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "2.6.2",
+    "nodemon": "^1.11.0",
     "prettier": "1.14.3"
   }
 }
