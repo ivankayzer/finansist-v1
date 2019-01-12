@@ -69,7 +69,7 @@ module.exports = {
     uid: 'username',
     password: 'password',
     options: {
-      secret: 'self::app.appKey'
+      secret: 'lfVGqhuFm3X3B31OQzKQNbtlb8EHBsSV'
     }
   }
 }

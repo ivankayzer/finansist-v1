@@ -18,4 +18,9 @@ const Route = use('Route')
 Route.post('/login', 'UserController.login')
 Route.post('/register', 'UserController.register')
 Route.post('/getUser', 'UserController.getUser')
+
+Route.get('/categories', 'CategoryController.all')
+Route.post('/categories/add', 'CategoryController.add')
+Route.delete('/categories/:id', 'CategoryController.delete')
+
 Route.any('*', 'NuxtController.render')

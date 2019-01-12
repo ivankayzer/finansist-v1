@@ -1,6 +1,6 @@
 <template>
   <aside class="menu">
-    <ul class="menu-list" v-if="!Object.keys(this.$store.state.user).length">
+    <ul class="menu-list" v-if="!Object.keys(this.$store.state.auth.user).length">
       <li>
         <nuxt-link to="/login">Войти</nuxt-link>
       </li>
@@ -8,7 +8,7 @@
         <nuxt-link to="/register">Регистрация</nuxt-link>
       </li>
     </ul>
-    <ul class="menu-list" v-if="Object.keys(this.$store.state.user).length">
+    <ul class="menu-list" v-if="Object.keys(this.$store.state.auth.user).length">
       <li>
         <nuxt-link to="/">Главная</nuxt-link>
       </li>

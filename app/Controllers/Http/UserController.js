@@ -12,7 +12,7 @@ class UserController {
 
         const User = use('App/Models/User')
 
-        const user = User.query().where('username', username).first();
+        const user = await User.query().where('username', username).first();
         const token = await auth.generate(user);
 
         return {

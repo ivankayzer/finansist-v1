@@ -25,7 +25,7 @@ export default {
   },
   beforeMount() {
     if (
-      !Object.keys(this.$store.state.user).length &&
+      !Object.keys(this.$store.state.auth.user).length &&
       localStorage.getItem('token')
     ) {
       this.$store.dispatch('getUser')
