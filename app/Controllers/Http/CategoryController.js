@@ -12,9 +12,7 @@ class CategoryController {
 
     const user = await auth.getUser();
 
-    const category = user.categories().create({ name });
-
-    return category;
+    return user.categories().create({ name });
   }
 
   async delete({ request, auth, params }) {

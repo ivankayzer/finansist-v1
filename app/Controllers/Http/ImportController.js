@@ -1,16 +1,17 @@
 'use strict'
 const Papa = require('papaparse')
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
+const Helpers = use('Helpers')
 
 class ImportController {
   async import({ request, auth }) {
     const csv = request.file('csv')
-    const Helpers = use('Helpers')
-    const removeFile = Helpers.promisify(fs.unlink)
+
+    const filename = this.generateFileName(csv._clientName)
 
     await csv.move(Helpers.tmpPath('uploads'), {
-      name: csv.clientName,
+      name: filename,
       overwrite: true
     })
 
@@ -18,13 +19,43 @@ class ImportController {
       return csv.error()
     }
 
-    const file = fs.readFileSync(path.join(csv._location, csv._fileName), 'utf8');
+    const file = fs.readFileSync(path.join(csv._location, csv._fileName), 'utf8')
 
-    const output = await Papa.parse(file);
+    const output = await Papa.parse(file)
 
-    removeFile(path.join(csv._location, csv._fileName))
+    return { output, filename }
+  }
 
-    return output;
+  generateFileName(csv) {
+    if (!csv) {
+      return
+    }
+
+    let filename = csv.split('.')
+
+    filename = filename[0] + '-' + Math.round((new Date()).getTime() / 1000) + '.' + filename[1]
+
+    return filename
+  }
+
+  async importTransactions({ request, auth }) {
+    const removeFile = Helpers.promisify(fs.unlink)
+    const { columns, filename } = request.all()
+    const output = await Papa.parse(fs.readFileSync(path.join(Helpers.tmpPath('uploads'), filename), 'utf8'))
+    const Transaction = use('App/Models/Transaction')
+    const user = await auth.getUser()
+
+    output.data.filter(transaction => transaction.length > 1).forEach(async transaction => {
+      let model = new Transaction
+
+      for (let key in columns) {
+        model[columns[key]] = transaction[key]
+      }
+
+      await user.transactions().save(model)
+    })
+
+    removeFile(path.join(Helpers.tmpPath('uploads'), filename))
   }
 }
 

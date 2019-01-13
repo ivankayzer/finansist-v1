@@ -7,9 +7,9 @@
   "scripts": {
     "serve:dev": "npm run dev",
     "dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
+    "dev-debug": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node --inspect server.js",
     "build": "node ./ace nuxtbuild",
-    "start": "cross-env NODE_ENV=production node server.js",
-    "dev-debug": "node --inspect node_modules/.bin/nuxt"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@adonisjs/ace": "^4.0.7",
@@ -24,6 +24,7 @@
     "@adonisjs/shield": "^1.0.4",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
+    "currency.js": "^1.2.1",
     "mysql": "^2.16.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.2.1",
