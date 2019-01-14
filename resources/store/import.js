@@ -4,6 +4,7 @@ const imports = {
   state: {
     transactions: [],
     filename: null,
+    importSuccess: false,
   },
   mutations: {
     setTransactions(state, output) {
@@ -12,6 +13,9 @@ const imports = {
     setFilename(state, filename) {
       state.filename = filename
     },
+    setImportSuccess(state, status) {
+      state.importSuccess = status
+    }
   },
   actions: {
     uploadCsv({ commit }, file) {
@@ -29,7 +33,8 @@ const imports = {
     },
     importTransactions({ commit }, { columns, filename }) {
       axios.post('/imports/transactions', { columns, filename }).then(response => {
-        console.log(response);
+        commit('setImportSuccess', true)
+        commit('setTransactions', [])
       });
     }
   }

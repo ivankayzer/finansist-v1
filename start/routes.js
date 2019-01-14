@@ -26,4 +26,6 @@ Route.delete('/categories/:id', 'CategoryController.delete')
 Route.post('/imports/import', 'ImportController.import')
 Route.post('/imports/transactions', 'ImportController.importTransactions')
 
+Route.get('/transactions/all', 'TransactionController.all')
+
 Route.any('*', 'NuxtController.render')

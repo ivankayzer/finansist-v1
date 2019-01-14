@@ -3,15 +3,17 @@ import Vuex from 'vuex'
 import auth from './auth'
 import categories from './categories'
 import imports from './import'
+import transactions from './transactions'
 
 Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
-    modules: {
-        auth,
-        categories,
-        imports
-    }
+  modules: {
+    auth,
+    categories,
+    imports,
+    transactions
+  }
 })
 
 export default store
