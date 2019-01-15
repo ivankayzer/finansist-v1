@@ -27,5 +27,6 @@ Route.post('/imports/import', 'ImportController.import')
 Route.post('/imports/transactions', 'ImportController.importTransactions')
 
 Route.get('/transactions/all', 'TransactionController.all')
+Route.patch('/transactions/:id', 'TransactionController.update')
 
 Route.any('*', 'NuxtController.render')

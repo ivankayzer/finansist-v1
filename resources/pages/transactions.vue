@@ -25,7 +25,8 @@
           </b-table-column>
 
           <b-table-column field="title" label="Титул" width="100">
-            {{ (props.row.formatted_title && props.row.formatted_title.length) ? props.row.formatted_title : props.row.original_title }}
+            {{ (props.row.formatted_title && props.row.formatted_title.length) ? props.row.formatted_title :
+            props.row.original_title }}
           </b-table-column>
 
           <b-table-column field="amount" label="Сумма" width="50" sortable centered>
@@ -33,7 +34,7 @@
           </b-table-column>
 
           <b-table-column field="category" label="Категория" width="50" centered>
-            <b-select placeholder="Без категории">
+            <b-select :value="props.row.category_id" :data-id="props.row.id" placeholder="Без категории" @input.native="changeCategory">
               <option
                 v-for="option in categories"
                 :value="option.id"
@@ -53,7 +54,7 @@
           </b-table-column>
 
           <b-table-column field="is_ignored" label="Игнор" width="20" sortable centered>
-            <b-checkbox type="is-warning"></b-checkbox>
+            <b-checkbox :value="props.row.is_ignored" :data-id="props.row.id" type="is-warning" @input.native="changeIgnored"></b-checkbox>
           </b-table-column>
         </template>
 
@@ -94,6 +95,20 @@
     beforeMount() {
       this.$store.dispatch('getCategories')
       this.$store.dispatch('fetchTransactions')
+    },
+    methods: {
+      changeCategory(event) {
+        this.$store.dispatch('updateTransactionCategory', {
+          categoryId: event.target.value,
+          id: event.target.dataset.id
+        })
+      },
+      changeIgnored(event) {
+        this.$store.dispatch('updateTransactionIgnored', {
+          isIgnored: Boolean(event.target.checked),
+          id: event.target.parentElement.dataset.id
+        })
+      }
     }
   }
 </script>
