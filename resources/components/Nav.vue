@@ -22,6 +22,9 @@
         <nuxt-link to="/import">Импорт</nuxt-link>
       </li>
       <li>
+        <nuxt-link to="/formatter">Форматирование</nuxt-link>
+      </li>
+      <li>
         <nuxt-link to="/reports">Отчеты</nuxt-link>
       </li>
       <p class="menu-label"></p>

@@ -35,7 +35,7 @@
         </b-message>
       </div>
     </section>
-    <section class="mt-30" v-if="this.$store.state.imports.transactions.length">
+    <section class="mt-30" v-if="this.$store.state.imports.imported.length">
       <b-table
         :data="this.$store.state.imports.transactions"
         :paginated="isPaginated"

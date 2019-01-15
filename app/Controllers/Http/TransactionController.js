@@ -17,15 +17,17 @@ class TransactionController {
 
     await transaction.save()
 
-    return transaction
+    return this.formatTransaction(transaction);
   }
 
   formatTransactions(transactions) {
-    return transactions.map(transaction => {
-      transaction.is_ignored = Boolean(transaction.is_ignored);
+    return transactions.map(transaction => this.formatTransaction(transaction))
+  }
 
-      return transaction;
-    })
+  formatTransaction(transaction) {
+    transaction.is_ignored = Boolean(transaction.is_ignored);
+
+    return transaction;
   }
 }
 

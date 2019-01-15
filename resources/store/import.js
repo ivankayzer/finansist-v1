@@ -2,13 +2,13 @@ import axios from '~/plugins/axios'
 
 const imports = {
   state: {
-    transactions: [],
+    imported: [],
     filename: null,
     importSuccess: false,
   },
   mutations: {
-    setTransactions(state, output) {
-      state.transactions = output
+    setImported(state, output) {
+      state.imported = output
     },
     setFilename(state, filename) {
       state.filename = filename
@@ -27,14 +27,14 @@ const imports = {
           'Content-Type': 'multipart/form-data'
         }
       }).then(response => {
-        commit('setTransactions', response.data.output.data)
+        commit('setImported', response.data.output.data)
         commit('setFilename', response.data.filename)
       })
     },
     importTransactions({ commit }, { columns, filename }) {
       axios.post('/imports/transactions', { columns, filename }).then(response => {
         commit('setImportSuccess', true)
-        commit('setTransactions', [])
+        commit('setImported', [])
       });
     }
   }
