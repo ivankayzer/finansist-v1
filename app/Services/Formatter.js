@@ -16,6 +16,8 @@ class Formatter {
     this._actions.forEach(action => this._transaction = action.performAction(this._transaction))
 
     this._transaction.save()
+
+    return this._transaction;
   }
 
   isElegibleForFormat() {

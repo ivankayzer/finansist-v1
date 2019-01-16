@@ -38,7 +38,7 @@ module.exports = {
   },
   cropperAction: {
     action: 'crop',
-    match: 'this text should be cropped.',
+    match: ' This text should be cropped.',
     additional_data: null
   },
   ignoreAction: {

@@ -16,7 +16,7 @@ class Action {
   }
 
   satisfiesMatchCondition() {
-    return this._transaction.includes(this._action.match)
+    return this._transaction.original_title.includes(this._action.match)
   }
 }
 
