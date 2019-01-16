@@ -1,35 +1,26 @@
 'use strict'
 
-const Cropper = require('./Cropper')
-const Ignorer = require('./Ignorer')
-const Assigner = require('./Assigner')
+const FormatterFactory = require('./FormatterFactory')
 
 class Formatter {
-  constructor(transaction) {
-    this._transaction = transaction;
-    this._actions = [
-      new Cropper,
-      new Ignorer,
-      new Assigner
-    ];
+  constructor(transaction, actions = []) {
+    this._transaction = transaction
+    this._actions = actions.map(action => FormatterFactory.make(action))
   }
 
   apply() {
     if (!this.isElegibleForFormat()) {
-      return null;
+      return null
     }
 
-    let title = this._transaction.original_title;
+    this._actions.forEach(action => this._transaction = action.performAction(this._transaction))
 
-    this._actions.forEach(action => title = action.performAction(title))
-
-    this._transaction.formatted_title = title;
-    this._transaction.save();
+    this._transaction.save()
   }
 
   isElegibleForFormat() {
-    return !this._transaction.is_ignored && this._transaction.formatted_title === null;
+    return !this._transaction.is_ignored && this._transaction.formatted_title === null
   }
 }
 
-module.exports = Formatter;
+module.exports = Formatter

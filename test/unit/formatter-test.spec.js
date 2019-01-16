@@ -3,7 +3,7 @@
 const Formatter = require('../../app/Services/Formatter');
 
 const { test } = use('Test/Suite')('Formatter Test')
-const { transaction, formattedTransaction, ignoredTransaction } = require('../fakes/formatter')
+const { transaction, formattedTransaction, ignoredTransaction, cropperAction, assignAction, ignoreAction } = require('../fakes/formatter')
 
 test('it has an original title', async ({ assert }) => {
   let formatter = new Formatter(transaction);
