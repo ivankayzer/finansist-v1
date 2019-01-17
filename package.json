@@ -24,6 +24,7 @@
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
     "@adonisjs/vow": "^1.0.17",
+    "adonis-jsonable": "^0.2.0",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "currency.js": "^1.2.1",

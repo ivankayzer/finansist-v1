@@ -3,10 +3,11 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class FormatterSchema extends Schema {
+class ActionsSchema extends Schema {
   up () {
-    this.create('formatters', (table) => {
+    this.create('actions', (table) => {
       table.increments()
+      table.integer('user_id')
       table.string('action')
       table.string('match')
       table.json('additional_data')
@@ -15,8 +16,8 @@ class FormatterSchema extends Schema {
   }
 
   down () {
-    this.drop('formatters')
+    this.drop('actions')
   }
 }
 
-module.exports = FormatterSchema
+module.exports = ActionsSchema

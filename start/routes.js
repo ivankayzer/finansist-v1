@@ -29,4 +29,9 @@ Route.post('/imports/transactions', 'ImportController.importTransactions')
 Route.get('/transactions/all', 'TransactionController.all')
 Route.patch('/transactions/:id', 'TransactionController.update')
 
+Route.get('/actions/all', 'ActionController.all')
+Route.patch('/actions/:id', 'ActionController.update')
+Route.delete('/actions/:id', 'ActionController.delete')
+Route.post('/actions', 'ActionController.add')
+
 Route.any('*', 'NuxtController.render')

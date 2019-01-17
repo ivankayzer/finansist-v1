@@ -4,7 +4,7 @@
     <a class="button is-link is-rounded my-15" @click="addNew">Добавить новую</a>
     <div class="block" v-for="(element, index) in actions">
       <hr>
-      <a class="delete" @click="remove(index)"></a>
+      <a class="delete" @click="remove(element, index)"></a>
       <b-radio v-model="element.action" type="is-dark"
                native-value="crop">
         Удалить текст
@@ -35,8 +35,10 @@
           </b-select>
         </div>
         <div class="column">
-          <a class="button is-warning mt-15" v-if="element.id && canBeSaved(element)">Изменить</a>
-          <a class="button is-success mt-15" v-if="!element.id && canBeSaved(element)">Сохранить</a>
+          <a class="button is-warning mt-15" v-if="element.id && canBeSaved(element)"
+             @click="update(element)">Изменить</a>
+          <a class="button is-success mt-15" v-if="!element.id && canBeSaved(element)"
+             @click="save(element)">Сохранить</a>
         </div>
       </div>
       <hr>
@@ -65,19 +67,18 @@
 
 <script>
   export default {
-    data() {
-      return {
-        actions: []
-      }
-    },
     computed: {
       categories() {
         return this.$store.getters.categories
+      },
+      actions() {
+        return this.$store.state.actions.actions
       }
     },
     methods: {
       addNew() {
         this.actions.unshift({
+          internal_id: this.generateId(),
           action: null,
           match: null,
           additional_data: {
@@ -85,25 +86,37 @@
           }
         })
       },
-      save() {},
-      update() {},
-      remove(index) {
-        this.actions = this.actions.filter((element, i) => i !== index)
+      save(element) {
+        this.$store.dispatch('saveAction', element)
+      },
+      update(element) {
+        this.$store.dispatch('updateAction', element)
+      },
+      remove(element, index) {
+        if (element.id) {
+          this.$store.dispatch('deleteAction', element)
+        } else {
+          this.$store.commit('setActions', this.actions.filter((element, i) => i !== index))
+        }
+      },
+      generateId() {
+        return '_' + Math.random().toString(36).substr(2, 9)
       },
       canBeSaved(element) {
         if (!element.action || !element.match) {
-          return false;
+          return false
         }
 
         if (element.action === 'assign' && !element.additional_data.category_id) {
-          return false;
+          return false
         }
 
-        return true;
+        return true
       }
     },
     beforeMount() {
       this.$store.dispatch('getCategories')
+      this.$store.dispatch('fetchActions')
     }
   }
 </script>
