@@ -89,7 +89,7 @@
         return this.$store.state.transactions.transactions
       },
       categories() {
-        return this.$store.state.categories.categories
+        return this.$store.getters.categories
       }
     },
     beforeMount() {

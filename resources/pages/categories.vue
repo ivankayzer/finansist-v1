@@ -3,7 +3,7 @@
     <h1 class="title">Категории</h1>
     <b-field grouped group-multiline>
       <category
-        v-for="category in this.$store.state.categories.categories"
+        v-for="category in this.$store.getters.categories"
         :key="category.id"
         :category="category"
       />
