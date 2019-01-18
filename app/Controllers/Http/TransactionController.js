@@ -1,5 +1,7 @@
 'use strict'
 
+const Formatter = require('../../Services/Formatter')
+
 class TransactionController {
   async all({ request, auth }) {
     const user = await auth.getUser()
@@ -25,15 +27,15 @@ class TransactionController {
 
   async format({ auth }) {
     const user = await auth.getUser()
-    const transactions = await user
+    let transactions = await user
       .transactions()
       .unformatted()
       .fetch()
 
     const actions = await user.actions().fetch()
 
-    Array.from(transactions).map(transaction => {
-      let formatter = new Formatter(transaction, Array.from(actions))
+    transactions = transactions.toJSON().map(transaction => {
+      let formatter = new Formatter(transaction, actions.toJSON())
       transaction = formatter.apply()
       return transaction
     })
