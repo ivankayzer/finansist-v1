@@ -11,20 +11,26 @@ const actions = {
     deleteAction(state, id) {
       state.actions = state.actions.filter(action => action.id !== id)
     },
+    replaceAction(state, { idToReplace, action }) {
+      state.actions = state.actions.map(
+        oldAction =>
+          oldAction.internal_id === idToReplace ? action : oldAction
+      )
+    }
   },
   actions: {
     fetchActions({ commit }) {
-      axios.get('/actions/all').then(response => commit('setActions', response.data))
+      axios
+        .get('/actions/all')
+        .then(response => commit('setActions', response.data))
     },
     saveAction({ commit }, action) {
       axios.post('/actions', { action }).then(response => {
-        console.log(response)
+        commit('replaceAction', response.data)
       })
     },
     updateAction({ commit }, action) {
-      axios.patch('/actions/' + action.id, { action }).then(response => {
-        console.log(response)
-      })
+      axios.patch('/actions/' + action.id, { action })
     },
     deleteAction({ commit }, action) {
       axios.delete('/actions/' + action.id, { action }).then(response => {

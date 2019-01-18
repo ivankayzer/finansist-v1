@@ -30,14 +30,12 @@
         </div>
       </div>
       <div v-else>
-        <b-message type="is-success">
-          Файл заимпортирован успешно
-        </b-message>
+        <b-message type="is-success">Файл заимпортирован успешно</b-message>
       </div>
     </section>
     <section class="mt-30" v-if="this.$store.state.imports.imported.length">
       <b-table
-        :data="this.$store.state.imports.transactions"
+        :data="this.$store.state.imports.imported"
         :paginated="isPaginated"
         :per-page="perPage"
         :current-page.sync="currentPage"
@@ -61,7 +59,7 @@
         </template>
       </b-table>
 
-      <b-field v-if="this.$store.state.imports.transactions.length">
+      <b-field v-if="this.$store.state.imports.imported.length">
         <p class="control">
           <button class="button is-link" @click="addTransactions">Добавить</button>
         </p>
@@ -99,7 +97,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.commit('setImportSuccess', false);
+    this.$store.commit('setImportSuccess', false)
   },
   methods: {
     importCsv() {
@@ -112,12 +110,14 @@ export default {
       })
     },
     selectHeader(el) {
-      Array.from(document.querySelectorAll('.header-select')).map((element, index) => {
-        let value = element.querySelector('select').value;
-        if (value) {
-          this.columns[index] = value;
+      Array.from(document.querySelectorAll('.header-select')).map(
+        (element, index) => {
+          let value = element.querySelector('select').value
+          if (value) {
+            this.columns[index] = value
+          }
         }
-      })
+      )
     }
   }
 }

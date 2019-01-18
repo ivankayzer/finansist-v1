@@ -4,7 +4,7 @@ const Cropper = require('./Cropper')
 const Ignorer = require('./Ignorer')
 const Assigner = require('./Assigner')
 
-class FormatterFactory {
+class ActionFactory {
   static make(action) {
     if (action.action === 'crop') {
       return new Cropper(action)
@@ -20,4 +20,4 @@ class FormatterFactory {
   }
 }
 
-module.exports = FormatterFactory
+module.exports = ActionFactory
