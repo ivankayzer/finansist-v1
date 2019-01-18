@@ -26,14 +26,14 @@ class ActionController {
 
   async update({ request, auth, params }) {
     const Action = use('App/Models/Action')
-    let action = await Action.find(params.id)
-    const attributes = request.only(['action', 'additional_data', 'match'])
+    let model = await Action.find(params.id)
+    const { action } = request.only(['action'])
 
-    for (let key in attributes) {
-      action[key] = attributes[key]
-    }
+    model.action = action.action
+    model.match = action.match
+    model.additional_data = action.additional_data
 
-    return await action.save()
+    return await model.save()
   }
 
   async delete({ request, auth, params }) {

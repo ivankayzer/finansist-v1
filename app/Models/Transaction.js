@@ -7,15 +7,27 @@ const currency = require('currency.js')
 class Transaction extends Model {
   setAmount(value) {
     if (value) {
-      return currency(value.replace(',', '.'), { separator: "", decimal: "."}).format()
+      return currency(value.replace(',', '.'), {
+        separator: '',
+        decimal: '.'
+      }).format()
     }
   }
 
   setPaidAt(value) {
     if (value) {
-      let [day, month, year] = value.split('/');
-      return new Date(year, parseInt(month) - 1, parseInt(day) + 1).toISOString().slice(0, 10);
+      let [day, month, year] = value.split('-')
+      return new Date(year, parseInt(month) - 1, parseInt(day) + 1)
+        .toISOString()
+        .slice(0, 10)
     }
+  }
+
+  static scopeUnformatted(query) {
+    return query
+      .whereNull('formatted_title')
+      .whereNull('is_ignored')
+      .orWhere('is_ignored', 0)
   }
 
   user() {

@@ -7,7 +7,7 @@
   "scripts": {
     "serve:dev": "npm run dev",
     "dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
-    "dev-debug": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node --inspect server.js",
+    "dev-debug": "node --inspect node_modules/.bin/nuxt",
     "build": "node ./ace nuxtbuild",
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "jest"
