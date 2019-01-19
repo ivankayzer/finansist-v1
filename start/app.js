@@ -20,6 +20,7 @@ const providers = [
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/auth/providers/AuthProvider',
   'adonis-jsonable/providers/JsonableProvider',
+  'adonis-sentry/providers/Sentry'
 ]
 
 /*
@@ -58,8 +59,6 @@ const aliases = {}
 | Here you store ace commands for your package
 |
 */
-const commands = [
-  'App/Commands/NuxtBuild'
-]
+const commands = ['App/Commands/NuxtBuild']
 
 module.exports = { providers, aceProviders, aliases, commands }

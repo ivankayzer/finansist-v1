@@ -959,6 +959,65 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@sentry/core@4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-4.5.2.tgz#b103b659857e0fabf7219e9f34c4070bcb2af0c2"
+  integrity sha512-TRUQWQugcn2ut7eII6WxU3wlUs4CSYTUqjUDne8vCMjI4oZhmGEcRUEo03OcetieH8e+oB/a1LbLMg+JI6Nsxg==
+  dependencies:
+    "@sentry/hub" "4.5.2"
+    "@sentry/minimal" "4.5.2"
+    "@sentry/types" "4.5.0"
+    "@sentry/utils" "4.5.2"
+    tslib "^1.9.3"
+
+"@sentry/hub@4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-4.5.2.tgz#b1df97dccc8644f6ef9b36e8747fe04342cb92ef"
+  integrity sha512-17mVTzYCPVdVSBOYrpr53tDTfFcSBNb92dIIEvSybZe4IWDuMRe4hhUAy+A35HesEZS68uTQq49Ntspms5B8ow==
+  dependencies:
+    "@sentry/types" "4.5.0"
+    "@sentry/utils" "4.5.2"
+    tslib "^1.9.3"
+
+"@sentry/minimal@4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-4.5.2.tgz#c090427f6ac276b4dc449e8be460ca5b35ce4fb3"
+  integrity sha512-HhOw055ZhjUJkJIq3/tBBE3H8tC5J64UKggrzJ1i7GinCecHBbH/RZ55zMqb3ckHPa6aFshq0hJ1+lHxeYz1Rg==
+  dependencies:
+    "@sentry/hub" "4.5.2"
+    "@sentry/types" "4.5.0"
+    tslib "^1.9.3"
+
+"@sentry/node@4.5.2", "@sentry/node@^4.0.6":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-4.5.2.tgz#b90747749cf919006ca44fd873da87fd3608f8e0"
+  integrity sha512-6OnVpXNEzPxPrA+zR0bJp0k+cwY6sc5Bt7LwEq5q7vWcvS2pH3adN35wwJ4prYtTF4HOQ2pH7vBGP3K1C0DCYQ==
+  dependencies:
+    "@sentry/core" "4.5.2"
+    "@sentry/hub" "4.5.2"
+    "@sentry/types" "4.5.0"
+    "@sentry/utils" "4.5.2"
+    "@types/stack-trace" "0.0.29"
+    cookie "0.3.1"
+    https-proxy-agent "2.2.1"
+    lru_map "0.3.3"
+    lsmod "1.0.0"
+    stack-trace "0.0.10"
+    tslib "^1.9.3"
+
+"@sentry/types@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-4.5.0.tgz#59e2a27d48b01b44e8959aa5c8a30514fe1086a9"
+  integrity sha512-IstPjFoebQGrQWdM732D/+S0BTovmDgezyplk4kLEb87+/B+YK0hlhziUa7B2byTFJGgQQKXy7h2sKZBrA3GUA==
+
+"@sentry/utils@4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-4.5.2.tgz#0de5bef1c71e0dd800d378c010e5bfad91add91a"
+  integrity sha512-ED4CkT/zmc7LZLW5OuWRkgqcSqwZELh2S0ALJTv/4MhFZYuPWrs4DF/jcJcRkwivSoCUsiWDiESlU0JzYflbcg==
+  dependencies:
+    "@sentry/types" "4.5.0"
+    tslib "^1.9.3"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -967,6 +1026,11 @@
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
+
+"@types/stack-trace@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@types/stack-trace/-/stack-trace-0.0.29.tgz#eb7a7c60098edb35630ed900742a5ecb20cfcb4d"
+  integrity sha512-TgfOX+mGY/NyNxJLIbDWrO9DjGoVSW9+aB8H2yy1fy32jsvxijhmyJI9fDFgvz3YP4lvJaq9DzdR/M1bOgVc9g==
 
 "@vue/component-compiler-utils@^2.4.0":
   version "2.5.0"
@@ -1161,6 +1225,20 @@ adonis-jsonable@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/adonis-jsonable/-/adonis-jsonable-0.2.0.tgz#e66733b5a1ec0eac139f4db850896c8cda04484f"
   integrity sha512-k6fHWT0wm2kWJKJSBeww21TQevMTSVR8y2W04XWIquhUVdEJTmpsfLzeL2VbgSmChJlvuKRMXeaFy2Plb/orZA==
+
+adonis-sentry@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/adonis-sentry/-/adonis-sentry-1.0.2.tgz#c011ce213742f28a520264a423a26349c12407f4"
+  integrity sha512-MFOmaShp/5S/nM9QTxTsCI7WgW13UHxeP4WYy3pWrhSY+HU2gKlhyTv+gel4gcOK8bI26OK1lEMHDcrY8QYRNw==
+  dependencies:
+    "@sentry/node" "^4.0.6"
+
+agent-base@^4.1.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-4.2.1.tgz#d89e5999f797875674c07d87f260fc41e83e8ca9"
+  integrity sha512-JVwXMr9nHYTUXsBFKUqhJwvlcYU/blreOEUkhNR2eXZIvwd+c+o5V4MgDPKWnMS/56awN3TRzIP+KoPn+roQtg==
+  dependencies:
+    es6-promisify "^5.0.0"
 
 ajv-errors@^1.0.0:
   version "1.0.1"
@@ -2795,6 +2873,18 @@ es-to-primitive@^1.2.0:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
+es6-promise@^4.0.3:
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
+  integrity sha512-n6wvpdE43VFtJq+lUDYDBFUwV8TZbuGXLV4D6wKafg13ldznKsyEvatubnmUe31zcvelSzOHF+XbaT+Bl9ObDg==
+
+es6-promisify@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/es6-promisify/-/es6-promisify-5.0.0.tgz#5109d62f3e56ea967c4b63505aef08291c8a5203"
+  integrity sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
+  dependencies:
+    es6-promise "^4.0.3"
+
 escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
@@ -3515,6 +3605,14 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
+https-proxy-agent@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.1.tgz#51552970fa04d723e04c56d04178c3f92592bbc0"
+  integrity sha512-HPCTS1LW51bcyMYbxUIOO4HEOlQ1/1qRaFWcyxvwaqUS9TY88aoEuHUY33kuAh1YhVVaDQhLZsnPd+XNARWZlQ==
+  dependencies:
+    agent-base "^4.1.0"
+    debug "^3.1.0"
+
 iconv-lite@0.4.23:
   version "0.4.23"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.23.tgz#297871f63be507adcfbfca715d0cd0eed84e9a63"
@@ -4230,6 +4328,16 @@ lru-cache@^5.1.1:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
   dependencies:
     yallist "^3.0.2"
+
+lru_map@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
+  integrity sha1-tcg1G5Rky9dQM1p5ZQoOwOVhGN0=
+
+lsmod@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/lsmod/-/lsmod-1.0.0.tgz#9a00f76dca36eb23fa05350afe1b585d4299e64b"
+  integrity sha1-mgD3bco26yP6BTUK/htYXUKZ5ks=
 
 macroable@^1.0.0:
   version "1.0.0"
@@ -6776,7 +6884,7 @@ tryer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
 
-tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
