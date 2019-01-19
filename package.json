@@ -10,7 +10,8 @@
     "debug": "node --inspect server.js",
     "build": "node ./ace nuxtbuild",
     "start": "cross-env NODE_ENV=production node server.js",
-    "test": "jest"
+    "test": "jest",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@adonisjs/ace": "^4.0.7",
