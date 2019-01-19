@@ -27,11 +27,6 @@
       <div class="column">
         <b-radio v-model="type" type="is-dark" native-value="by_category">По категории</b-radio>
         <b-radio v-model="type" type="is-dark" native-value="by_days">По дням</b-radio>
-        <b-radio
-          v-model="type"
-          type="is-dark"
-          native-value="by_category_and_days"
-        >По категории и дням</b-radio>
       </div>
     </div>
 
