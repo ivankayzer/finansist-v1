@@ -36,4 +36,7 @@ Route.patch('/actions/:id', 'ActionController.update')
 Route.delete('/actions/:id', 'ActionController.delete')
 Route.post('/actions', 'ActionController.add')
 
+Route.get('/reports/dates', 'ReportController.dates')
+Route.post('/reports/generate', 'ReportController.generate')
+
 Route.any('*', 'NuxtController.render')
