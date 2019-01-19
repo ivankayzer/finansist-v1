@@ -23,11 +23,30 @@ class Transaction extends Model {
     }
   }
 
+  getPaidAt(value) {
+    return value.toISOString().slice(0, 10)
+  }
+
   static scopeUnformatted(query) {
     return query
       .whereNull('formatted_title')
       .whereNull('is_ignored')
       .orWhere('is_ignored', 0)
+  }
+
+  static scopeExpenses(query) {
+    return query.where('amount', '<', 0)
+  }
+
+  static scopeNotIgnored(query) {
+    return query.where('is_ignored', 0)
+  }
+
+  static scopeBetweenDates(query, start, end) {
+    return query.whereBetween('paid_at', [
+      start.substring(0, 10),
+      end.substring(0, 10)
+    ])
   }
 
   user() {

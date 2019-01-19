@@ -33,7 +33,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    'store'
+    'store',
+    {
+      src: '~plugins/apexchart',
+      ssr: false
+    }
   ],
 
   /*
@@ -52,6 +56,6 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) { }
+    extend(config, ctx) {}
   }
 }

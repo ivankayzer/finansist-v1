@@ -10,9 +10,6 @@
     </ul>
     <ul class="menu-list" v-if="Object.keys(this.$store.state.auth.user).length">
       <li>
-        <nuxt-link to="/">Главная</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/transactions">Транзакции</nuxt-link>
       </li>
       <li>
