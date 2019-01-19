@@ -951,6 +951,15 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
+"@nuxtjs/sentry@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/sentry/-/sentry-2.2.1.tgz#9f0b9f2d867f4f9daab9da3bbcda196baa4c717d"
+  integrity sha512-UEoV0qCrqXMirHrprNiW4cwjrFG8BzIbAEl8g8ykKhQ5Lt6kOW7k4gixI8XNAC5Gp5EnYQOsD7p8ZxsvrvO0+w==
+  dependencies:
+    "@sentry/browser" "^4.5.1"
+    "@sentry/node" "^4.5.1"
+    consola "^2.3.2"
+
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/youch/-/youch-4.2.3.tgz#36f8b22df5a0efaa81373109851e1d857aca6bed"
@@ -958,6 +967,16 @@
     cookie "^0.3.1"
     mustache "^2.3.0"
     stack-trace "0.0.10"
+
+"@sentry/browser@^4.5.1":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-4.5.2.tgz#d13a96a0638d16af47edef25b613d96ba3f9dc21"
+  integrity sha512-Gi0wKzKokn9ZYI7MCTe3ev36npI12127QgyZNwyyG9vcR9J62cH6cltQ3BTefghJaSjgwDAfy5F/+htUzE5eCQ==
+  dependencies:
+    "@sentry/core" "4.5.2"
+    "@sentry/types" "4.5.0"
+    "@sentry/utils" "4.5.2"
+    tslib "^1.9.3"
 
 "@sentry/core@4.5.2":
   version "4.5.2"
@@ -988,7 +1007,7 @@
     "@sentry/types" "4.5.0"
     tslib "^1.9.3"
 
-"@sentry/node@4.5.2", "@sentry/node@^4.0.6":
+"@sentry/node@4.5.2", "@sentry/node@^4.5.1":
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/@sentry/node/-/node-4.5.2.tgz#b90747749cf919006ca44fd873da87fd3608f8e0"
   integrity sha512-6OnVpXNEzPxPrA+zR0bJp0k+cwY6sc5Bt7LwEq5q7vWcvS2pH3adN35wwJ4prYtTF4HOQ2pH7vBGP3K1C0DCYQ==
@@ -1225,13 +1244,6 @@ adonis-jsonable@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/adonis-jsonable/-/adonis-jsonable-0.2.0.tgz#e66733b5a1ec0eac139f4db850896c8cda04484f"
   integrity sha512-k6fHWT0wm2kWJKJSBeww21TQevMTSVR8y2W04XWIquhUVdEJTmpsfLzeL2VbgSmChJlvuKRMXeaFy2Plb/orZA==
-
-adonis-sentry@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/adonis-sentry/-/adonis-sentry-1.0.2.tgz#c011ce213742f28a520264a423a26349c12407f4"
-  integrity sha512-MFOmaShp/5S/nM9QTxTsCI7WgW13UHxeP4WYy3pWrhSY+HU2gKlhyTv+gel4gcOK8bI26OK1lEMHDcrY8QYRNw==
-  dependencies:
-    "@sentry/node" "^4.0.6"
 
 agent-base@^4.1.0:
   version "4.2.1"
@@ -2163,7 +2175,7 @@ connect@^3.6.6:
     parseurl "~1.3.2"
     utils-merge "1.0.1"
 
-consola@^2.0.0-1, consola@^2.3.0:
+consola@^2.0.0-1, consola@^2.3.0, consola@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/consola/-/consola-2.3.2.tgz#ec75dd9847fa963dc41e21bc2737ac8c962677bb"
   dependencies:
