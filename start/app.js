@@ -19,8 +19,7 @@ const providers = [
   '@adonisjs/shield/providers/ShieldProvider',
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/auth/providers/AuthProvider',
-  'adonis-jsonable/providers/JsonableProvider',
-  'adonis-sentry/providers/Sentry'
+  'adonis-jsonable/providers/JsonableProvider'
 ]
 
 /*
