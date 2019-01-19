@@ -1,45 +1,47 @@
 <template>
-  <div id="chart">
-    <apexchart type="line" height="350" :options="chartOptions" :series="series"/>
+  <div>
+    <b-field label="Select a date">
+      <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
+    </b-field>
+
+    <b-field label="Select a date">
+      <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
+    </b-field>
+
+    <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
   </div>
 </template>
 
 <script>
 export default {
+  beforeMount() {
+    this.$store.dispatch('getDateRangeForReport')
+  },
   data() {
     return {
       series: [
         {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          name: 'Титул',
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
         }
       ],
       chartOptions: {
-        chart: {
-          height: 350,
-          zoom: {
-            enabled: false
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%'
           }
         },
         dataLabels: {
-          enabled: false
+          enabled: true
         },
         stroke: {
-          curve: 'straight'
-        },
-        title: {
-          text: 'Product Trends by Month',
-          align: 'left'
-        },
-        grid: {
-          row: {
-            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-            opacity: 0.5
-          }
+          show: true,
+          width: 2,
+          colors: ['transparent']
         },
         xaxis: {
           categories: [
-            'Jan',
             'Feb',
             'Mar',
             'Apr',
@@ -47,10 +49,34 @@ export default {
             'Jun',
             'Jul',
             'Aug',
-            'Sep'
+            'Sep',
+            'Oct'
           ]
+        },
+        yaxis: {
+          title: {
+            text: 'PLN'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val + ' PLN'
+            }
+          }
         }
       }
+    }
+  },
+  computed: {
+    dateMin() {
+      return this.$store.state.reports.min
+    },
+    dateMax() {
+      return this.$store.state.reports.max
     }
   }
 }
