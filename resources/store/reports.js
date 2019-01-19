@@ -16,6 +16,11 @@ const reports = {
       axios.get('/reports/dates').then(response => {
         commit('setDates', response.data)
       })
+    },
+    generateReport({ commit }, data) {
+      axios
+        .post('/reports/generate', data)
+        .then(response => console.log(response))
     }
   }
 }

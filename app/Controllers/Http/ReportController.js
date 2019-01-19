@@ -11,6 +11,14 @@ class ReportController {
       max: Object.values(max[0])[0]
     }
   }
+
+  async generate({ request, auth }) {
+    const { type, startDate, endDate } = request.all()
+
+    const report = ReportFactory.make(type, { startDate, endDate })
+
+    return await report.generate()
+  }
 }
 
 module.exports = ReportController

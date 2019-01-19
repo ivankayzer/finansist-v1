@@ -30,6 +30,10 @@ class Transaction extends Model {
       .orWhere('is_ignored', 0)
   }
 
+  static scopeExpenses(query) {
+    return query.where('amount', '<', 0)
+  }
+
   user() {
     return this.belongsTo('App/Models/User')
   }
