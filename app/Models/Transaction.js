@@ -23,6 +23,10 @@ class Transaction extends Model {
     }
   }
 
+  getPaidAt(value) {
+    return value.toISOString().slice(0, 10)
+  }
+
   static scopeUnformatted(query) {
     return query
       .whereNull('formatted_title')

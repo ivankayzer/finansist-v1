@@ -15,6 +15,10 @@ const reports = {
     setReportData(state, { keys, values }) {
       state.keys = keys
       state.values = values
+    },
+    clearReport(state) {
+      state.keys = []
+      state.values = []
     }
   },
   actions: {

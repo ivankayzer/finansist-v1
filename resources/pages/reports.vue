@@ -41,7 +41,20 @@
       </div>
     </div>
 
-    <apexchart type="bar" height="350" :options="chartOptions" :series="series" v-if="showReport"/>
+    <apexchart
+      type="bar"
+      height="350"
+      :options="chartOptions"
+      :series="series"
+      v-if="showReport && type === 'by_category'"
+    />
+    <apexchart
+      type="line"
+      height="350"
+      :options="chartOptions"
+      :series="series"
+      v-if="showReport && type === 'by_days'"
+    />
   </div>
 </template>
 
