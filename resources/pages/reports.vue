@@ -1,12 +1,22 @@
 <template>
   <div>
-    <b-field label="Select a date">
-      <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
-    </b-field>
-
-    <b-field label="Select a date">
-      <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
-    </b-field>
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <b-field label="Select a date">
+          <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
+        </b-field>
+      </div>
+      <div class="column is-one-quarter">
+        <b-field label="Select a date">
+          <b-datepicker placeholder="Click to select..." :min-date="dateMin" :max-date="dateMax"></b-datepicker>
+        </b-field>
+      </div>
+      <div class="column">
+        <b-radio v-model="type" type="is-dark" native-value="crop">Удалить текст</b-radio>
+        <b-radio v-model="type" type="is-dark" native-value="ignore">Игнорировать</b-radio>
+        <b-radio v-model="type" type="is-dark" native-value="assign">Приписать к категории</b-radio>
+      </div>
+    </div>
 
     <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
   </div>
@@ -19,6 +29,7 @@ export default {
   },
   data() {
     return {
+      type: null,
       series: [
         {
           name: 'Титул',
