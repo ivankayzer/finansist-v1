@@ -7,7 +7,7 @@
   "scripts": {
     "serve:dev": "npm run dev",
     "dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
-    "dev-debug": "node --inspect node_modules/.bin/nuxt",
+    "debug": "node --inspect server.js",
     "build": "node ./ace nuxtbuild",
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "jest"
@@ -28,6 +28,7 @@
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "currency.js": "^1.2.1",
+    "escape-string-regexp": "^1.0.5",
     "mysql": "^2.16.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.2.1",

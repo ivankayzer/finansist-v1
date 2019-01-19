@@ -34,14 +34,25 @@ class TransactionController {
 
     const actions = await user.actions().fetch()
 
-    transactions = transactions.toJSON().map(transaction => {
+    const formattedTransactions = {}
+
+    const output = transactions.toJSON().map(transaction => {
       let formatter = new Formatter(transaction, actions.toJSON())
       transaction = formatter.apply()
-      return transaction
+      formattedTransactions[transaction.id] = transaction
     })
 
+    for (let index in transactions.rows) {
+      const model = transactions.rows[index]
+      let { formatted_title, category_id, is_ignored } = formattedTransactions[
+        model.id
+      ]
+      model.merge({ formatted_title, category_id, is_ignored })
+      await model.save()
+    }
+
     return {
-      transactions: transactions
+      transactions: output
     }
   }
 

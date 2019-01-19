@@ -16,6 +16,14 @@ module.exports = {
     is_ignored: true
   },
   transactionToCrop: {
+    original_title:
+      'This is original title. This text should be cropped. This text should be cropped.',
+    formatted_title: null,
+    is_ignored: false,
+    category_id: null,
+    save: () => 'did nothing'
+  },
+  anotherTransactionToCrop: {
     original_title: 'This is original title. This text should be cropped.',
     formatted_title: null,
     is_ignored: false,
@@ -23,14 +31,16 @@ module.exports = {
     save: () => 'did nothing'
   },
   transactionToIgnore: {
-    original_title: 'This is original title. This transaction should be ignored.',
+    original_title:
+      'This is original title. This transaction should be ignored.',
     formatted_title: null,
     is_ignored: false,
     category_id: null,
     save: () => 'did nothing'
   },
   transactionToAssign: {
-    original_title: 'This is original title. I bought a food. This transaction should be assigned to a category',
+    original_title:
+      'This is original title. I bought a food. This transaction should be assigned to a category',
     formatted_title: null,
     is_ignored: false,
     category_id: null,
@@ -39,6 +49,16 @@ module.exports = {
   cropperAction: {
     action: 'crop',
     match: ' This text should be cropped.',
+    additional_data: null
+  },
+  cropperActionLowerCase: {
+    action: 'crop',
+    match: ' this text should be CROPPED.',
+    additional_data: null
+  },
+  anotherCropperAction: {
+    action: 'crop',
+    match: ' original',
     additional_data: null
   },
   ignoreAction: {

@@ -10,11 +10,12 @@ class Formatter {
 
   apply() {
     if (!this.isElegibleForFormat()) {
-      return null
+      return this._transaction
     }
 
     this._actions.forEach(
-      action => (this._transaction = action.performAction(this._transaction))
+      action =>
+        (this._transaction = action.prepare(this._transaction).performAction())
     )
 
     return this._transaction

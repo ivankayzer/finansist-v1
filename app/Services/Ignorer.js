@@ -3,9 +3,7 @@
 const Action = require('./Action')
 
 class Ignorer extends Action {
-  performAction(transaction) {
-    this._transaction = transaction
-
+  performAction() {
     if (this.satisfiesMatchCondition()) {
       this._transaction.is_ignored = true
     }
@@ -14,4 +12,4 @@ class Ignorer extends Action {
   }
 }
 
-module.exports = Ignorer;
+module.exports = Ignorer
