@@ -1,5 +1,7 @@
 'use strict'
 
+const ReportFactory = require('../../Reports/ReportFactory')
+
 class ReportController {
   async dates({ request, auth }) {
     const Database = use('Database')
@@ -14,8 +16,11 @@ class ReportController {
 
   async generate({ request, auth }) {
     const { type, startDate, endDate } = request.all()
-
-    const report = ReportFactory.make(type, { startDate, endDate })
+    const user = await auth.getUser()
+    const report = ReportFactory.make(user.transactions(), type, {
+      startDate,
+      endDate
+    })
 
     return await report.generate()
   }

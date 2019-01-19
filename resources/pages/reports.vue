@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
+    <apexchart type="bar" height="350" :options="chartOptions" :series="series" v-if="showReport"/>
   </div>
 </template>
 
@@ -61,57 +61,7 @@ export default {
     return {
       type: null,
       startDate: null,
-      endDate: null,
-      series: [
-        {
-          name: 'Потрачено',
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }
-      ],
-      chartOptions: {
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: '55%'
-          }
-        },
-        dataLabels: {
-          enabled: true
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ['transparent']
-        },
-        xaxis: {
-          categories: [
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct'
-          ]
-        },
-        yaxis: {
-          title: {
-            text: 'PLN'
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        tooltip: {
-          y: {
-            formatter: function(val) {
-              return val + ' PLN'
-            }
-          }
-        }
-      }
+      endDate: null
     }
   },
   methods: {
@@ -132,6 +82,56 @@ export default {
     },
     showGenerateButton() {
       return this.startDate && this.endDate && this.type
+    },
+    showReport() {
+      return (
+        this.$store.state.reports.keys.length &&
+        this.$store.state.reports.values.length
+      )
+    },
+    series() {
+      return [
+        {
+          name: 'Потрачено',
+          data: this.$store.state.reports.values
+        }
+      ]
+    },
+    chartOptions() {
+      return {
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%'
+          }
+        },
+        dataLabels: {
+          enabled: true
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: this.$store.state.reports.keys
+        },
+        yaxis: {
+          title: {
+            text: 'PLN'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val + ' PLN'
+            }
+          }
+        }
+      }
     }
   }
 }

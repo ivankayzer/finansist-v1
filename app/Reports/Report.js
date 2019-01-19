@@ -1,9 +1,10 @@
 'use strict'
 
 class Report {
-  constructor(start, end) {
+  constructor(transactions, start, end) {
     this._start = start
     this._end = end
+    this._transactions = transactions
   }
 
   generate() {
@@ -11,4 +12,4 @@ class Report {
   }
 }
 
-export default Report
+module.exports = Report

@@ -34,6 +34,17 @@ class Transaction extends Model {
     return query.where('amount', '<', 0)
   }
 
+  static scopeNotIgnored(query) {
+    return query.where('is_ignored', 0)
+  }
+
+  static scopeBetweenDates(query, start, end) {
+    return query.whereBetween('paid_at', [
+      start.substring(0, 10),
+      end.substring(0, 10)
+    ])
+  }
+
   user() {
     return this.belongsTo('App/Models/User')
   }

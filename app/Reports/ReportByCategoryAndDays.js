@@ -1,5 +1,7 @@
 'use strict'
 
+const Report = require('./Report')
+
 class ReportByCategoryAndDays extends Report {}
 
-export default ReportByCategoryAndDays
+module.exports = ReportByCategoryAndDays

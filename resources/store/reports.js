@@ -3,12 +3,18 @@ import axios from '~/plugins/axios'
 const reports = {
   state: {
     min: null,
-    max: null
+    max: null,
+    keys: [],
+    values: []
   },
   mutations: {
     setDates(state, { min, max }) {
       state.min = new Date(min)
       state.max = new Date(max)
+    },
+    setReportData(state, { keys, values }) {
+      state.keys = keys
+      state.values = values
     }
   },
   actions: {
@@ -20,7 +26,7 @@ const reports = {
     generateReport({ commit }, data) {
       axios
         .post('/reports/generate', data)
-        .then(response => console.log(response))
+        .then(response => commit('setReportData', response.data))
     }
   }
 }
