@@ -10,6 +10,7 @@ class ReportByDays extends Report {
       .notIgnored()
       .betweenDates(this._start, this._end)
       .with('category')
+      .orderBy('paid_at')
       .fetch()
 
     transactions = collect(transactions.toJSON())
