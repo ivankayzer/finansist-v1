@@ -38,14 +38,14 @@
 
     <apexchart
       type="bar"
-      height="350"
+      height="550"
       :options="chartOptions"
       :series="series"
       v-if="showReport && type === 'by_category'"
     />
     <apexchart
       type="line"
-      height="350"
+      height="550"
       :options="chartOptions"
       :series="series"
       v-if="showReport && type === 'by_days'"
@@ -110,7 +110,7 @@ export default {
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: '55%'
+            columnWidth: '85%'
           }
         },
         dataLabels: {

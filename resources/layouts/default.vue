@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="app">
     <div class="columns">
-      <div class="column is-one-quarter">
+      <div class="column is-one-fifth">
         <navigation/>
       </div>
       <div class="column">
