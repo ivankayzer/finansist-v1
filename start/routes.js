@@ -30,6 +30,7 @@ Route.get('/transactions/all', 'TransactionController.all')
 Route.get('/transactions/unformatted', 'TransactionController.getUnformatted')
 Route.patch('/transactions/:id', 'TransactionController.update')
 Route.get('/transactions/format', 'TransactionController.format')
+Route.post('/transactions/filter', 'TransactionController.filter')
 
 Route.get('/actions/all', 'ActionController.all')
 Route.patch('/actions/:id', 'ActionController.update')

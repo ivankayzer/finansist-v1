@@ -5,7 +5,8 @@ const reports = {
     min: null,
     max: null,
     keys: [],
-    values: []
+    values: [],
+    transactions: []
   },
   mutations: {
     setDates(state, { min, max }) {
@@ -19,6 +20,9 @@ const reports = {
     clearReport(state) {
       state.keys = []
       state.values = []
+    },
+    setReportTransactions(state, transactions) {
+      state.transactions = transactions
     }
   },
   actions: {

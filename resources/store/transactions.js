@@ -48,6 +48,11 @@ const transactions = {
         dispatch('fetchTransactions')
         dispatch('fetchUnformatted')
       })
+    },
+    fetchFilteredTransactions({ commit }, data) {
+      axios
+        .post('transactions/filter', data)
+        .then(response => commit('setReportTransactions', response.data))
     }
   }
 }

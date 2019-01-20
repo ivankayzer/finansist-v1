@@ -50,6 +50,8 @@
       :series="series"
       v-if="showReport && type === 'by_days'"
     />
+
+    <transactions-table :data="transactions" v-if="transactions.length"></transactions-table>
   </div>
 </template>
 
@@ -61,7 +63,12 @@
 
 
 <script>
+import TransactionsTable from '~/components/TransactionsTable'
+
 export default {
+  components: {
+    TransactionsTable
+  },
   beforeMount() {
     this.$store.dispatch('getDateRangeForReport')
   },
@@ -73,23 +80,31 @@ export default {
     }
   },
   methods: {
-    generate() {
+    formatDate() {
       let startDate = new Date(this.startDate)
       let endDate = new Date(this.endDate)
 
       startDate = startDate.setHours(startDate.getHours() + 25)
       endDate = endDate.setHours(endDate.getHours() + 25)
 
+      return { startDate: new Date(startDate), endDate: new Date(endDate) }
+    },
+    generate() {
+      let { startDate, endDate } = this.formatDate()
+
       this.$store.dispatch('generateReport', {
         type: this.type,
-        startDate: new Date(startDate),
-        endDate: new Date(endDate)
+        startDate,
+        endDate
       })
     }
   },
   computed: {
     dateMin() {
       return this.$store.state.reports.min
+    },
+    transactions() {
+      return this.$store.state.reports.transactions
     },
     dateMax() {
       return this.$store.state.reports.max
@@ -113,14 +128,34 @@ export default {
     },
     chartOptions() {
       return {
+        chart: {
+          events: {
+            dataPointSelection: (event, chartContext, config) => {
+              let { startDate, endDate } = this.formatDate()
+              this.$store.dispatch('fetchFilteredTransactions', {
+                category: this.$store.state.reports.keys[config.dataPointIndex],
+                startDate,
+                endDate
+              })
+            }
+          }
+        },
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: '85%'
+            columnWidth: '85%',
+            dataLabels: {
+              position: 'top'
+            }
           }
         },
         dataLabels: {
-          enabled: true
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ['#304758']
+          }
         },
         stroke: {
           show: true,
