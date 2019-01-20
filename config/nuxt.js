@@ -46,8 +46,14 @@ module.exports = {
   modules: [
     ,
     // Doc: https://buefy.github.io/#/documentation
-    'nuxt-buefy'
+    'nuxt-buefy',
+    '@nuxtjs/sentry'
   ],
+
+  sentry: {
+    dsn: 'https://bdbef85403f147b29ee275db73e0e73c@sentry.io/1375241', // Enter your project's DSN here
+    config: {} // Additional config
+  },
 
   /*
   ** Build configuration

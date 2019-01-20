@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const Env = use('Env')
 
 class Action extends Model {
   get jsonFields() {
@@ -10,7 +11,9 @@ class Action extends Model {
 
   static boot() {
     super.boot()
-    this.addTrait('@provider:Jsonable')
+    if (Env.get('DB_CONNECTION') === 'mysql') {
+      this.addTrait('@provider:Jsonable')
+    }
   }
 }
 
