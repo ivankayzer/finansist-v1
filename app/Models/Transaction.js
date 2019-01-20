@@ -28,10 +28,7 @@ class Transaction extends Model {
   }
 
   static scopeUnformatted(query) {
-    return query
-      .whereNull('formatted_title')
-      .whereNull('is_ignored')
-      .orWhere('is_ignored', 0)
+    return query.whereNull('category_id').where('is_ignored', 0)
   }
 
   static scopeExpenses(query) {
