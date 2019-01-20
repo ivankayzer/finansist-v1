@@ -22,10 +22,7 @@ class Formatter {
   }
 
   isElegibleForFormat() {
-    return (
-      !this._transaction.is_ignored &&
-      this._transaction.formatted_title === null
-    )
+    return !this._transaction.is_ignored && !this._transaction.category_id
   }
 }
 

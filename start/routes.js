@@ -27,7 +27,7 @@ Route.post('/imports/import', 'ImportController.import')
 Route.post('/imports/transactions', 'ImportController.importTransactions')
 
 Route.get('/transactions/all', 'TransactionController.all')
-Route.get('/transactions/count', 'TransactionController.getUnformattedCount')
+Route.get('/transactions/unformatted', 'TransactionController.getUnformatted')
 Route.patch('/transactions/:id', 'TransactionController.update')
 Route.get('/transactions/format', 'TransactionController.format')
 
