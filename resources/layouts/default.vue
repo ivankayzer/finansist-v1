@@ -1,16 +1,9 @@
 <template>
   <div class="container" id="app">
-<<<<<<< HEAD
     <nav>
       <navigation/>
     </nav>
     <div class="columns view-container">
-=======
-    <div class="columns">
-      <div class="column is-one-fifth">
-        <navigation/>
-      </div>
->>>>>>> 3fb835bb2e61283a61a40bd383cca9f9a87492e9
       <div class="column">
         <nuxt/>
       </div>
@@ -21,6 +14,10 @@
 <style>
 .view-container {
   padding: 0.5em;
+}
+
+#app {
+  margin-top: 50px;
 }
 </style>
 
@@ -50,9 +47,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#app {
-  margin-top: 50px;
-}
-</style>
