@@ -24,6 +24,42 @@ class TransactionController {
     return transactions
   }
 
+  async filter({ request, auth }) {
+    const user = await auth.getUser()
+    const { category, startDate, endDate } = request.all()
+
+    let categoryModel = null
+
+    if (category !== 'Без категории') {
+      const Category = use('App/Models/Category')
+      categoryModel = await Category.query()
+        .where('name', category)
+        .first()
+    }
+
+    let transactions = []
+
+    if (category !== 'Без категории') {
+      transactions = await user
+        .transactions()
+        .expenses()
+        .notIgnored()
+        .betweenDates(startDate, endDate)
+        .where('category_id', categoryModel.id)
+        .fetch()
+    } else {
+      transactions = await user
+        .transactions()
+        .expenses()
+        .notIgnored()
+        .betweenDates(startDate, endDate)
+        .whereNull('category_id')
+        .fetch()
+    }
+
+    return transactions
+  }
+
   async format({ auth }) {
     const user = await auth.getUser()
     let transactions = await user
