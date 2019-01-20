@@ -1,36 +1,49 @@
 <template>
-  <aside class="menu">
-    <ul class="menu-list" v-if="!Object.keys(this.$store.state.auth.user).length">
-      <li>
+  <div class="menu">
+    <div class="menu-list" v-if="!Object.keys(this.$store.state.auth.user).length">
+      <div class="left">
         <nuxt-link to="/login">Войти</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/register">Регистрация</nuxt-link>
-      </li>
-    </ul>
-    <ul class="menu-list" v-if="Object.keys(this.$store.state.auth.user).length">
-      <li>
+      </div>
+    </div>
+    <div class="menu-list" v-if="Object.keys(this.$store.state.auth.user).length">
+      <div class="left">
         <nuxt-link to="/transactions">Транзакции</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/categories">Категории</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/import">Импорт</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/formatter">Форматирование</nuxt-link>
-      </li>
-      <li>
         <nuxt-link to="/reports">Отчеты</nuxt-link>
-      </li>
-      <p class="menu-label"></p>
-      <li>
+      </div>
+      <div class="right">
+        <p class="meta">{{ this.$store.state.auth.user.username }}</p>
         <a to="/logout" @click="logout">Выйти</a>
-      </li>
-    </ul>
-  </aside>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style>
+.menu {
+  margin-bottom: 50px;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-list .left,
+.menu-list .right {
+  display: flex;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  margin-right: 35px;
+}
+</style>
+
 
 <script>
 export default {

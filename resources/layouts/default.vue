@@ -1,15 +1,22 @@
 <template>
   <div class="container" id="app">
-    <div class="columns">
-      <div class="column is-one-quarter">
-        <navigation/>
-      </div>
+    <nav>
+      <navigation/>
+    </nav>
+    <div class="columns view-container">
       <div class="column">
         <nuxt/>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.view-container {
+  padding: 0.5em;
+}
+</style>
+
 
 <script>
 import Navigation from '~/components/Nav'
