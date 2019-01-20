@@ -3,7 +3,7 @@ import axios from '~/plugins/axios'
 const transactions = {
   state: {
     transactions: [],
-    unformattedCount: null
+    unformatted: []
   },
   mutations: {
     setTransactions(state, transactions) {
@@ -14,8 +14,8 @@ const transactions = {
         transact => (transact.id === transaction.id ? transaction : transact)
       )
     },
-    setUnformattedCount(state, count) {
-      state.unformattedCount = count
+    setUnformatted(state, transactions) {
+      state.unformatted = transactions
     }
   },
   actions: {
@@ -24,9 +24,9 @@ const transactions = {
         commit('setTransactions', response.data)
       })
     },
-    fetchUnformattedCount({ commit }) {
-      axios.get('transactions/count').then(response => {
-        commit('setUnformattedCount', response.data.count)
+    fetchUnformatted({ commit }) {
+      axios.get('transactions/unformatted').then(response => {
+        commit('setUnformatted', response.data)
       })
     },
     updateTransactionCategory({ commit }, { categoryId, id }) {
@@ -43,8 +43,11 @@ const transactions = {
           commit('updateTransaction', response.data)
         })
     },
-    format({ commit }) {
-      axios.get('transactions/format')
+    format({ dispatch }) {
+      axios.get('transactions/format').then(() => {
+        dispatch('fetchTransactions')
+        dispatch('fetchUnformatted')
+      })
     }
   }
 }

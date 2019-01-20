@@ -4,11 +4,14 @@
       Транзакции
       <a class="button is-small is-link is-rounded" @click="format">Форматировать</a>
       <div class="float-right">
-        <b-tag
-          type="is-dark"
-          rounded
-        >Всего: {{ this.$store.state.transactions.transactions.length }}</b-tag>
-        <b-tag rounded>Не отформатированные: {{ this.$store.state.transactions.unformattedCount }}</b-tag>
+        <a
+          :class="['button is-small is-rounded ' + (this.source === 'all' ? 'is-dark' : '')]"
+          @click="showAll"
+        >Всего: {{ this.$store.state.transactions.transactions.length }}</a>
+        <a
+          :class="['button is-small is-rounded ' + (this.source === 'unformatted' ? 'is-dark' : '')]"
+          @click="showUnformatted"
+        >Не отформатированные: {{ this.$store.state.transactions.unformatted.length }}</a>
       </div>
     </h1>
     <section>
@@ -117,6 +120,7 @@
 export default {
   data() {
     return {
+      source: 'all',
       isPaginated: true,
       defaultSortDirection: 'asc',
       currentPage: 1,
@@ -125,7 +129,9 @@ export default {
   },
   computed: {
     data() {
-      return this.$store.state.transactions.transactions
+      return this.source === 'all'
+        ? this.$store.state.transactions.transactions
+        : this.$store.state.transactions.unformatted
     },
     categories() {
       return this.$store.getters.categories
@@ -134,7 +140,7 @@ export default {
   beforeMount() {
     this.$store.dispatch('getCategories')
     this.$store.dispatch('fetchTransactions')
-    this.$store.dispatch('fetchUnformattedCount')
+    this.$store.dispatch('fetchUnformatted')
   },
   methods: {
     format() {
@@ -151,6 +157,12 @@ export default {
         isIgnored: Boolean(event.target.checked),
         id: event.target.parentElement.dataset.id
       })
+    },
+    showAll() {
+      this.source = 'all'
+    },
+    showUnformatted() {
+      this.source = 'unformatted'
     }
   }
 }

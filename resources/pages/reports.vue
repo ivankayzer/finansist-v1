@@ -74,10 +74,16 @@ export default {
   },
   methods: {
     generate() {
+      let startDate = new Date(this.startDate)
+      let endDate = new Date(this.endDate)
+
+      startDate = startDate.setHours(startDate.getHours() + 25)
+      endDate = endDate.setHours(endDate.getHours() + 25)
+
       this.$store.dispatch('generateReport', {
         type: this.type,
-        startDate: this.startDate,
-        endDate: this.endDate
+        startDate: new Date(startDate),
+        endDate: new Date(endDate)
       })
     }
   },

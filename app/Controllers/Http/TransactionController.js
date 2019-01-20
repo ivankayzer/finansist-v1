@@ -13,16 +13,15 @@ class TransactionController {
     )
   }
 
-  async getUnformattedCount({ auth }) {
+  async getUnformatted({ auth }) {
     const user = await auth.getUser()
-    const count = await user
+
+    const transactions = await user
       .transactions()
       .unformatted()
-      .count('id')
+      .fetch()
 
-    return {
-      count: Object.values(count[0])[0]
-    }
+    return transactions
   }
 
   async format({ auth }) {
@@ -36,7 +35,7 @@ class TransactionController {
 
     const formattedTransactions = {}
 
-    const output = transactions.toJSON().map(transaction => {
+    transactions.toJSON().map(transaction => {
       let formatter = new Formatter(transaction, actions.toJSON())
       transaction = formatter.apply()
       formattedTransactions[transaction.id] = transaction
@@ -51,9 +50,7 @@ class TransactionController {
       await model.save()
     }
 
-    return {
-      transactions: output
-    }
+    return transactions
   }
 
   async update({ request, params }) {
