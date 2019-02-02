@@ -20,8 +20,10 @@ const transactions = {
   },
   actions: {
     fetchTransactions({ commit }) {
+      commit('startLoading')
       axios.get('transactions/all').then(response => {
         commit('setTransactions', response.data)
+        commit('stopLoading')
       })
     },
     fetchUnformatted({ commit }) {

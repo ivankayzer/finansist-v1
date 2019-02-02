@@ -6,6 +6,7 @@ import imports from './import'
 import transactions from './transactions'
 import actions from './actions'
 import reports from './reports'
+import misc from './misc'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = () =>
       imports,
       transactions,
       actions,
-      reports
+      reports,
+      misc
     }
   })
 
