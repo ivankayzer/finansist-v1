@@ -9,7 +9,7 @@ class TransactionController {
       await user
         .transactions()
         .orderBy('paid_at', 'desc')
-        .get()
+        .fetch()
     )
   }
 
@@ -104,7 +104,7 @@ class TransactionController {
   }
 
   formatTransactions(transactions) {
-    return transactions.map(transaction => this.formatTransaction(transaction))
+    return transactions.rows.map(transaction => this.formatTransaction(transaction))
   }
 
   formatTransaction(transaction) {
