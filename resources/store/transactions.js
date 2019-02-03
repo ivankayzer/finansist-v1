@@ -51,6 +51,12 @@ const transactions = {
         dispatch('fetchUnformatted')
       })
     },
+    reset({ dispatch }) {
+      axios.get('transactions/reset').then(() => {
+        dispatch('fetchTransactions')
+        dispatch('fetchUnformatted')
+      })
+    },
     fetchFilteredTransactions({ commit }, data) {
       axios
         .post('transactions/filter', data)
