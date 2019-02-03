@@ -45,6 +45,13 @@ const transactions = {
           commit('updateTransaction', response.data)
         })
     },
+    updateTransactionImmutable({ commit }, { isImmutable, id }) {
+      axios
+        .patch(`transactions/${id}`, { immutable: isImmutable })
+        .then(response => {
+          commit('updateTransaction', response.data)
+        })
+    },
     format({ dispatch }) {
       axios.get('transactions/format').then(() => {
         dispatch('fetchTransactions')

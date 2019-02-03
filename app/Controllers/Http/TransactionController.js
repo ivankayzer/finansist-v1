@@ -90,7 +90,7 @@ class TransactionController {
 
   async update({ request, params }) {
     const transaction = await Transaction.find(params.id)
-    const attributes = request.only(['category_id', 'is_ignored'])
+    const attributes = request.only(['category_id', 'is_ignored', 'immutable'])
 
     for (let key in attributes) {
       transaction[key] = attributes[key]
@@ -105,6 +105,7 @@ class TransactionController {
     const user = await auth.getUser()
     await user
       .transactions()
+      .where({immutable: false})
       .update({ formatted_title: null, category_id: null, is_ignored: false })
 
     return true
