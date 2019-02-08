@@ -37,6 +37,8 @@ Route.patch('/actions/:id', 'ActionController.update')
 Route.delete('/actions/:id', 'ActionController.delete')
 Route.post('/actions', 'ActionController.add')
 
+Route.post('/budgets', 'BudgetController.add')
+
 Route.get('/reports/dates', 'ReportController.dates')
 Route.post('/reports/generate', 'ReportController.generate')
 

@@ -13,6 +13,7 @@
         <nuxt-link to="/import">Импорт</nuxt-link>
         <nuxt-link to="/formatter">Форматирование</nuxt-link>
         <nuxt-link to="/reports">Отчеты</nuxt-link>
+        <nuxt-link to="/budgets">Бюджеты</nuxt-link>
       </div>
       <div class="right">
         <p class="meta">{{ this.$store.state.auth.user.username }}</p>
