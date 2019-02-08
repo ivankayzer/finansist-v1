@@ -79,6 +79,9 @@
         return this.$store.getters.categories
       }
     },
+    beforeMount() {
+      this.$store.dispatch('getCategories')
+    },
     methods: {
       addNew() {
         this.budgets.unshift({

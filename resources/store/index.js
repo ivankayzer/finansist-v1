@@ -7,6 +7,7 @@ import transactions from './transactions'
 import actions from './actions'
 import reports from './reports'
 import misc from './misc'
+import budgets from './budgets'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ const store = () =>
       transactions,
       actions,
       reports,
-      misc
+      misc,
+      budgets
     }
   })
 

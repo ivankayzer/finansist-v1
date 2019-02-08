@@ -5,9 +5,8 @@ class BudgetController {
     const { budget } = request.all()
 
     const user = await auth.getUser()
-    const model = await user.budgets().create(budget)
 
-    return model
+    return await user.budgets().create(budget)
   }
 }
 
