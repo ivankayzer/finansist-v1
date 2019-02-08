@@ -56,132 +56,132 @@
 </template>
 
 <style>
-.mb-50 {
-  margin-bottom: 50px !important;
-}
+  .mb-50 {
+    margin-bottom: 50px !important;
+  }
 </style>
 
 
 <script>
-import TransactionsTable from '~/components/TransactionsTable'
+  import TransactionsTable from '~/components/TransactionsTable'
 
-export default {
-  components: {
-    TransactionsTable
-  },
-  beforeMount() {
-    this.$store.dispatch('getDateRangeForReport')
-  },
-  data() {
-    return {
-      type: null,
-      startDate: null,
-      endDate: null
-    }
-  },
-  methods: {
-    formatDate() {
-      let startDate = new Date(this.startDate)
-      let endDate = new Date(this.endDate)
-
-      startDate = startDate.setHours(startDate.getHours() + 25)
-      endDate = endDate.setHours(endDate.getHours() + 25)
-
-      return { startDate: new Date(startDate), endDate: new Date(endDate) }
+  export default {
+    components: {
+      TransactionsTable
     },
-    generate() {
-      let { startDate, endDate } = this.formatDate()
-
-      this.$store.dispatch('generateReport', {
-        type: this.type,
-        startDate,
-        endDate
-      })
-    }
-  },
-  computed: {
-    dateMin() {
-      return this.$store.state.reports.min
+    beforeMount() {
+      this.$store.dispatch('getDateRangeForReport')
     },
-    transactions() {
-      return this.$store.state.reports.transactions
-    },
-    dateMax() {
-      return this.$store.state.reports.max
-    },
-    showGenerateButton() {
-      return this.startDate && this.endDate && this.type
-    },
-    showReport() {
-      return (
-        this.$store.state.reports.keys.length &&
-        this.$store.state.reports.values.length
-      )
-    },
-    series() {
-      return [
-        {
-          name: 'Потрачено',
-          data: this.$store.state.reports.values
-        }
-      ]
-    },
-    chartOptions() {
+    data() {
       return {
-        chart: {
-          events: {
-            dataPointSelection: (event, chartContext, config) => {
-              let { startDate, endDate } = this.formatDate()
-              this.$store.dispatch('fetchFilteredTransactions', {
-                category: this.$store.state.reports.keys[config.dataPointIndex],
-                startDate,
-                endDate
-              })
+        type: null,
+        startDate: null,
+        endDate: null,
+      }
+    },
+    methods: {
+      formatDate() {
+        let startDate = new Date(this.startDate)
+        let endDate = new Date(this.endDate)
+
+        startDate = startDate.setHours(startDate.getHours() + 25)
+        endDate = endDate.setHours(endDate.getHours() + 25)
+
+        return { startDate: new Date(startDate), endDate: new Date(endDate) }
+      },
+      generate() {
+        let { startDate, endDate } = this.formatDate()
+
+        this.$store.dispatch('generateReport', {
+          type: this.type,
+          startDate,
+          endDate
+        })
+      }
+    },
+    computed: {
+      dateMin() {
+        return this.$store.state.reports.min
+      },
+      transactions() {
+        return this.$store.state.reports.transactions
+      },
+      dateMax() {
+        return this.$store.state.reports.max
+      },
+      showGenerateButton() {
+        return this.startDate && this.endDate && this.type
+      },
+      showReport() {
+        return (
+          this.$store.state.reports.keys.length &&
+          this.$store.state.reports.values.length
+        )
+      },
+      series() {
+        return [
+          {
+            name: 'Потрачено',
+            data: this.$store.state.reports.values
+          }
+        ]
+      },
+      chartOptions() {
+        return {
+          chart: {
+            events: {
+              dataPointSelection: (event, chartContext, config) => {
+                let { startDate, endDate } = this.formatDate()
+                this.$store.dispatch('fetchFilteredTransactions', {
+                  category: this.$store.state.reports.keys[config.dataPointIndex],
+                  startDate,
+                  endDate
+                })
+              }
             }
-          }
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: '85%',
-            dataLabels: {
-              position: 'top'
+          },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '85%',
+              dataLabels: {
+                position: 'top'
+              }
             }
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          offsetY: -20,
-          style: {
-            fontSize: '12px',
-            colors: ['#304758']
-          }
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ['transparent']
-        },
-        xaxis: {
-          categories: this.$store.state.reports.keys
-        },
-        yaxis: {
-          title: {
-            text: 'PLN'
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        tooltip: {
-          y: {
-            formatter: function(val) {
-              return val + ' PLN'
+          },
+          dataLabels: {
+            enabled: true,
+            offsetY: -20,
+            style: {
+              fontSize: '12px',
+              colors: ['#304758']
+            }
+          },
+          stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+          },
+          xaxis: {
+            categories: this.$store.state.reports.keys
+          },
+          yaxis: {
+            title: {
+              text: 'PLN'
+            }
+          },
+          fill: {
+            opacity: 1
+          },
+          tooltip: {
+            y: {
+              formatter: function(val) {
+                return val + ' PLN'
+              }
             }
           }
         }
       }
     }
   }
-}
 </script>

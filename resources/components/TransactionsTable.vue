@@ -57,6 +57,15 @@
           @input.native="changeIgnored"
         ></b-checkbox>
       </b-table-column>
+
+      <b-table-column field="immutable" label="Блокировка" width="20" centered>
+        <b-checkbox
+          :value="props.row.immutable"
+          :data-id="props.row.id"
+          type="is-warning"
+          @input.native="changeImmutable"
+        ></b-checkbox>
+      </b-table-column>
     </template>
 
     <template slot="detail" slot-scope="props">
@@ -95,6 +104,12 @@ export default {
     changeIgnored(event) {
       this.$store.dispatch('updateTransactionIgnored', {
         isIgnored: Boolean(event.target.checked),
+        id: event.target.parentElement.dataset.id
+      })
+    },
+    changeImmutable(event) {
+      this.$store.dispatch('updateTransactionImmutable', {
+        isImmutable: Boolean(event.target.checked),
         id: event.target.parentElement.dataset.id
       })
     }

@@ -30,6 +30,7 @@
     "adonis-jsonable": "^0.2.0",
     "apexcharts": "^3.1.0",
     "axios": "^0.18.0",
+    "blueimp-md5": "^2.10.0",
     "collect.js": "^4.4.0",
     "cross-env": "^5.2.0",
     "currency.js": "^1.2.1",

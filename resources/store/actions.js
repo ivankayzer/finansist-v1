@@ -20,9 +20,13 @@ const actions = {
   },
   actions: {
     fetchActions({ commit }) {
+      commit('startLoading')
       axios
         .get('/actions/all')
-        .then(response => commit('setActions', response.data))
+        .then(response => {
+          commit('setActions', response.data)
+          commit('stopLoading')
+        })
     },
     saveAction({ commit }, action) {
       axios.post('/actions', { action }).then(response => {

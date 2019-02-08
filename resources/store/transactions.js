@@ -20,8 +20,10 @@ const transactions = {
   },
   actions: {
     fetchTransactions({ commit }) {
+      commit('startLoading')
       axios.get('transactions/all').then(response => {
         commit('setTransactions', response.data)
+        commit('stopLoading')
       })
     },
     fetchUnformatted({ commit }) {
@@ -43,8 +45,21 @@ const transactions = {
           commit('updateTransaction', response.data)
         })
     },
+    updateTransactionImmutable({ commit }, { isImmutable, id }) {
+      axios
+        .patch(`transactions/${id}`, { immutable: isImmutable })
+        .then(response => {
+          commit('updateTransaction', response.data)
+        })
+    },
     format({ dispatch }) {
       axios.get('transactions/format').then(() => {
+        dispatch('fetchTransactions')
+        dispatch('fetchUnformatted')
+      })
+    },
+    reset({ dispatch }) {
+      axios.get('transactions/reset').then(() => {
         dispatch('fetchTransactions')
         dispatch('fetchUnformatted')
       })

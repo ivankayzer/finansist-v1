@@ -3,6 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 const currency = require('currency.js')
+const md5 = require('blueimp-md5')
 
 class Transaction extends Model {
   setAmount(value) {
@@ -52,6 +53,11 @@ class Transaction extends Model {
 
   category() {
     return this.belongsTo('App/Models/Category')
+  }
+
+  generateUid() {
+    this.uid = md5(this.paid_at + this.original_title + this.amount)
+    return this.uid
   }
 }
 

@@ -58,6 +58,6 @@ const aliases = {}
 | Here you store ace commands for your package
 |
 */
-const commands = ['App/Commands/NuxtBuild']
+const commands = ['App/Commands/NuxtBuild', 'App/Commands/GenerateUid']
 
 module.exports = { providers, aceProviders, aliases, commands }

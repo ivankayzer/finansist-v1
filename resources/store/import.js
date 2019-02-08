@@ -19,6 +19,7 @@ const imports = {
   },
   actions: {
     uploadCsv({ commit }, file) {
+      commit('startLoading')
       let formData = new FormData()
       formData.append('csv', file)
 
@@ -29,12 +30,15 @@ const imports = {
       }).then(response => {
         commit('setImported', response.data.output.data)
         commit('setFilename', response.data.filename)
+        commit('stopLoading')
       })
     },
     importTransactions({ commit }, { columns, filename }) {
+      commit('startLoading')
       axios.post('/imports/transactions', { columns, filename }).then(response => {
         commit('setImportSuccess', true)
         commit('setImported', [])
+        commit('stopLoading')
       });
     }
   }

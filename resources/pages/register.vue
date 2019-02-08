@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     register() {
-      this.$store.dispatch('register', {username: this.username, password: this.password});
+      this.$store.dispatch('register', {username: this.username, password: this.password}).then(() =>  this.$router.push({ path: '/' }));
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="container" id="app">
+    <loader v-show="this.$store.state.misc.loading" />
     <nav>
       <navigation/>
     </nav>
@@ -24,16 +25,9 @@
 
 <script>
 import Navigation from '~/components/Nav'
+import Loader from '~/components/Loader'
 
 export default {
-  data() {
-    return {
-      items: [
-        { title: 'Home', icon: 'home', to: { name: 'index' } },
-        { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } }
-      ]
-    }
-  },
   beforeMount() {
     if (
       !Object.keys(this.$store.state.auth.user).length &&
@@ -41,9 +35,11 @@ export default {
     ) {
       this.$store.dispatch('getUser')
     }
+    this.$store.commit('init')
   },
   components: {
-    Navigation
+    Navigation,
+    Loader
   }
 }
 </script>

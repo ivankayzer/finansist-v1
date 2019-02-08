@@ -3,6 +3,7 @@ const Papa = require('papaparse')
 const fs = require('fs')
 const path = require('path')
 const Helpers = use('Helpers')
+const collect = require('collect.js')
 
 class ImportController {
   async import({ request, auth }) {
@@ -45,11 +46,20 @@ class ImportController {
     const Transaction = use('App/Models/Transaction')
     const user = await auth.getUser()
 
+    let existingTransactions = await user.transactions().select('uid').fetch()
+    existingTransactions = collect(existingTransactions.rows).pluck('uid').unique();
+
     output.data.filter(transaction => transaction.length > 1).forEach(async transaction => {
       let model = new Transaction
 
       for (let key in columns) {
         model[columns[key]] = transaction[key]
+      }
+
+      const uid = model.generateUid()
+
+      if (existingTransactions.contains(uid)) {
+        return;
       }
 
       await user.transactions().save(model)
