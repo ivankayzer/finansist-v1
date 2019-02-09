@@ -160,8 +160,11 @@
         budget.data.splice(index, 1)
       },
       save(budget) {
-        let startDate = new Date(budget.start_date).setHours(startDate.getHours() + 1)
-        let endDate = new Date(budget.end_date).setHours(endDate.getHours() + 1)
+        let startDate = new Date(budget.start_date)
+        let endDate = new Date(budget.end_date)
+
+        startDate = startDate.setHours(startDate.getHours() + 1)
+        endDate = endDate.setHours(endDate.getHours() + 1)
 
         budget.start_date = new Date(startDate)
         budget.end_date = new Date(endDate)
