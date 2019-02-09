@@ -3,6 +3,7 @@
     <h1 class="title">
       Транзакции
       <a class="button is-small is-link is-rounded" @click="format">Форматировать</a>
+      <a class="button is-small is-danger is-rounded" @click="reset">Сбросить</a>
       <div class="float-right">
         <a
           :class="['button is-small is-rounded ' + (this.source === 'all' ? 'is-dark' : '')]"
@@ -68,6 +69,11 @@ export default {
     },
     showUnformatted() {
       this.source = 'unformatted'
+    },
+    reset() {
+      if (confirm('Ты уверен?')) {
+        this.$store.dispatch('reset')
+      }
     }
   }
 }

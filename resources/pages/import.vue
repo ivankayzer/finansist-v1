@@ -52,6 +52,7 @@
         </template>
         <template slot-scope="props" slot="header">
           <b-select class="header-select" @input="selectHeader">
+            <option value="-1">Игнорировать</option>
             <option value="original_title">Титул</option>
             <option value="amount">Сумма</option>
             <option value="paid_at">Дата</option>
@@ -113,7 +114,9 @@ export default {
       Array.from(document.querySelectorAll('.header-select')).map(
         (element, index) => {
           let value = element.querySelector('select').value
-          if (value) {
+          if (value === '-1') {
+            delete this.columns[index]
+          } else if(value) {
             this.columns[index] = value
           }
         }

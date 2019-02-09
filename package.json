@@ -30,15 +30,18 @@
     "adonis-jsonable": "^0.2.0",
     "apexcharts": "^3.1.0",
     "axios": "^0.18.0",
+    "blueimp-md5": "^2.10.0",
     "collect.js": "^4.4.0",
     "cross-env": "^5.2.0",
     "currency.js": "^1.2.1",
+    "dayjs": "^1.8.5",
     "escape-string-regexp": "^1.0.5",
     "mysql": "^2.16.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.2.1",
     "papaparse": "^4.6.3",
     "pg": "^7.8.0",
+    "progressbar.js": "^1.0.1",
     "vue-apexcharts": "^1.2.8"
   },
   "devDependencies": {

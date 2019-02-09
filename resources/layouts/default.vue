@@ -1,9 +1,10 @@
 <template>
   <div class="container" id="app">
-    <div class="columns">
-      <div class="column is-one-fifth">
-        <navigation/>
-      </div>
+    <loader v-show="this.$store.state.misc.loading" />
+    <nav>
+      <navigation/>
+    </nav>
+    <div class="columns view-container">
       <div class="column">
         <nuxt/>
       </div>
@@ -11,18 +12,22 @@
   </div>
 </template>
 
+<style>
+.view-container {
+  padding: 0.5em;
+}
+
+#app {
+  margin-top: 50px;
+}
+</style>
+
+
 <script>
 import Navigation from '~/components/Nav'
+import Loader from '~/components/Loader'
 
 export default {
-  data() {
-    return {
-      items: [
-        { title: 'Home', icon: 'home', to: { name: 'index' } },
-        { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } }
-      ]
-    }
-  },
   beforeMount() {
     if (
       !Object.keys(this.$store.state.auth.user).length &&
@@ -30,15 +35,11 @@ export default {
     ) {
       this.$store.dispatch('getUser')
     }
+    this.$store.commit('init')
   },
   components: {
-    Navigation
+    Navigation,
+    Loader
   }
 }
 </script>
-
-<style>
-#app {
-  margin-top: 50px;
-}
-</style>

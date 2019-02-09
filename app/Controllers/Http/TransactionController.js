@@ -1,6 +1,7 @@
 'use strict'
 
 const Formatter = require('../../Services/Formatter')
+const Transaction = use('App/Models/Transaction')
 
 class TransactionController {
   async all({ request, auth }) {
@@ -9,7 +10,7 @@ class TransactionController {
       await user
         .transactions()
         .orderBy('paid_at', 'desc')
-        .get()
+        .fetch()
     )
   }
 
@@ -79,9 +80,7 @@ class TransactionController {
 
     for (let index in transactions.rows) {
       const model = transactions.rows[index]
-      let { formatted_title, category_id, is_ignored } = formattedTransactions[
-        model.id
-      ]
+      let { formatted_title, category_id, is_ignored } = formattedTransactions[model.id]
       model.merge({ formatted_title, category_id, is_ignored })
       await model.save()
     }
@@ -90,9 +89,8 @@ class TransactionController {
   }
 
   async update({ request, params }) {
-    const Transaction = use('App/Models/Transaction')
     const transaction = await Transaction.find(params.id)
-    const attributes = request.only(['category_id', 'is_ignored'])
+    const attributes = request.only(['category_id', 'is_ignored', 'immutable'])
 
     for (let key in attributes) {
       transaction[key] = attributes[key]
@@ -103,8 +101,18 @@ class TransactionController {
     return this.formatTransaction(transaction)
   }
 
+  async reset({ auth }) {
+    const user = await auth.getUser()
+    await user
+      .transactions()
+      .where({immutable: false})
+      .update({ formatted_title: null, category_id: null, is_ignored: false })
+
+    return true
+  }
+
   formatTransactions(transactions) {
-    return transactions.map(transaction => this.formatTransaction(transaction))
+    return transactions.rows.map(transaction => this.formatTransaction(transaction))
   }
 
   formatTransaction(transaction) {
