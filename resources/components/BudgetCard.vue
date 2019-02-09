@@ -66,13 +66,14 @@
     },
     mounted() {
       this.card.limits.forEach((limit, index) => {
+        let value = Number(limit.limit / 100) * Number(limit.expenses);
         new ProgressBar.Line(`[data-id="${index}"]`, {
           strokeWidth: 4,
           easing: 'easeInOut',
           duration: 1400,
           color: '#FFEA82',
           trailColor: '#eee',
-          trailWidth: 1,
+          trailWidth: 4,
           svgStyle: { width: '100%', height: '100%' },
           text: {
             style: {
@@ -89,9 +90,12 @@
           from: { color: '#FFEA82' },
           to: { color: '#ED6A5A' },
           step: (state, bar) => {
-            bar.setText(Math.round(bar.value() * 100) + ' %')
+            bar.setText(Number(limit.expenses) + ' / ' + Number(limit.limit) + ' ' + '<b>' + Math.round(value) + ' %' + '</b>');
+             if (bar.value() > 1) {
+                bar.trail.setAttribute('stroke', '#ED6A5A');
+            }
           }
-        }).animate(1)
+        }).animate(value / 100)
       })
     }
   }

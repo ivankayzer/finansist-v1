@@ -15,6 +15,14 @@ class BudgetLimit extends Model {
   static get updatedAtColumn() {
     return null
   }
+
+  static get primaryKey () {
+    return null
+  }
+
+  static get incrementing () {
+    return false
+  }
 }
 
 module.exports = BudgetLimit
