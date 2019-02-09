@@ -135,12 +135,14 @@
           internal_id: this.generateId(),
           start_date: null,
           end_date: null,
-          category_id: null,
-          limit: null
+          data: [{
+            category_id: null,
+            limit: null
+          }]
         })
       },
       canBeSaved(budget) {
-        return budget.start_date && budget.end_date && budget.category_id && budget.limit;
+        return budget.start_date && budget.end_date && budget.data.length
       },
       save(budget) {
         this.$store.dispatch('saveBudget', budget).then(() => {
