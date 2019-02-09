@@ -44,7 +44,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    ,
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     '@nuxtjs/sentry'

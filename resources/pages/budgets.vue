@@ -71,31 +71,7 @@
       </div>
     </div>
     <div class="columns mt-30">
-      <div class="column is-4" v-for="card in budgetsList">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              {{ formatDate(card.start_date) }} - {{ formatDate(card.end_date) }}
-            </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-            </a>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <a href="#" class="card-footer-item" @click="confirm(card.id)">
-              Удалить
-            </a>
-          </footer>
-        </div>
-      </div>
+      <budget-card v-for="card in budgetsList" :card="card" :key="card.id" />
     </div>
   </section>
 </template>
@@ -137,8 +113,8 @@
 </style>
 
 <script>
+  import BudgetCard from '../components/BudgetCard'
   import { generatesId } from '../store/mixins'
-  import daysjs from 'dayjs'
   import 'dayjs/locale/ru'
 
   export default {
@@ -160,18 +136,6 @@
       this.$store.dispatch('getCategories')
     },
     methods: {
-      formatDate(date) {
-        return daysjs(date).locale('ru').format('DD MMM, YYYY')
-      },
-      confirm(id) {
-        this.$dialog.confirm({
-          type: 'is-danger',
-          message: 'Точно удалить?',
-          cancelText: 'Нет',
-          confirmText: 'Да',
-          onConfirm: () => this.$store.dispatch('deleteBudget', id)
-        })
-      },
       addNew() {
         this.budgets.unshift({
           internal_id: this.generateId(),
@@ -184,7 +148,7 @@
         })
       },
       canBeSaved(budget) {
-        return budget.start_date && budget.end_date && budget.data.length
+        return budget.start_date && budget.end_date && budget.data.filter(data => data.category_id && data.limit).length
       },
       addLimit(budget) {
         budget.data.push({
@@ -201,6 +165,9 @@
         })
       }
     },
-    mixins: [generatesId]
+    mixins: [generatesId],
+    components: {
+      BudgetCard
+    }
   }
 </script>
