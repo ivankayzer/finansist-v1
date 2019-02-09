@@ -4,50 +4,66 @@
     <a class="button is-link is-rounded my-15" @click="addNew">Добавить новый</a>
     <div class="budget" v-for="budget in budgets">
       <div class="columns">
-        <div class="column">
-          <b-field label="Дата начала">
-            <b-datepicker
-              placeholder="Выбери дату"
-              v-model="budget.start_date"
-            ></b-datepicker>
-          </b-field>
+        <div class="column is-half">
+          <div class="columns">
+            <div class="column">
+              <b-field label="Дата начала">
+                <b-datepicker
+                  placeholder="Выбери дату"
+                  v-model="budget.start_date"
+                ></b-datepicker>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field label="Дата конца">
+                <b-datepicker
+                  placeholder="Выбери дату"
+                  v-model="budget.end_date"
+                ></b-datepicker>
+              </b-field>
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <b-field label="Дата конца">
-            <b-datepicker
-              placeholder="Выбери дату"
-              v-model="budget.end_date"
-            ></b-datepicker>
-          </b-field>
+        <div class="column is-half">
+          <div class="columns flex-wrap">
+            <div class="column relative is-12" v-for="(data, index) in budget.data">
+              <div class="columns">
+                <div class="column">
+                  <b-field label="Лимит">
+                    <b-input
+                      type="number"
+                      v-model="data.limit"
+                    >
+                    </b-input>
+                  </b-field>
+                </div>
+                <div class="column">
+                  <b-field label="Категория">
+                    <b-select
+                      placeholder="Без категории"
+                      class="mt-15"
+                      v-model="data.category_id"
+                    >
+                      <option
+                        v-for="option in categories"
+                        :value="option.id"
+                        :key="option.id"
+                      >{{ option.name }}
+                      </option>
+                    </b-select>
+                  </b-field>
+                </div>
+              </div>
+              <a class="delete add-row" @click="addLimit(budget)"></a>
+              <a class="delete remove-row" v-if="budget.data.length > 1" @click="removeLimit(budget, index)"></a>
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <b-field label="Лимит">
-            <b-input
-              type="number"
-              v-model="budget.limit"
-            >
-            </b-input>
-          </b-field>
-        </div>
-        <div class="column">
-          <b-field label="Категория">
-            <b-select
-              placeholder="Без категории"
-              class="mt-15"
-              v-model="budget.category_id"
-            >
-              <option
-                v-for="option in categories"
-                :value="option.id"
-                :key="option.id"
-              >{{ option.name }}
-              </option>
-            </b-select>
-          </b-field>
-        </div>
+      </div>
+      <div class="columns">
         <div class="column">
           <a
-            class="button is-success mt-30"
+            class="button is-success"
             v-if="canBeSaved(budget)"
             @click="save(budget)"
           >Сохранить</a>
@@ -92,6 +108,32 @@
   .mt-30 {
     margin-top: 30px;
   }
+
+  .relative {
+    position: relative;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .add-row {
+    position: absolute;
+    transform: rotate(45deg);
+    bottom: 45px;
+    right: 15px;
+  }
+
+  .remove-row {
+    position: absolute;
+    transform: rotate(45deg);
+    bottom: 45px;
+    right: 45px;
+  }
+
+  .remove-row:before {
+    content: none;
+  }
 </style>
 
 <script>
@@ -110,7 +152,7 @@
         return this.$store.getters.categories
       },
       budgetsList() {
-        return this.$store.state.budgets.budgets;
+        return this.$store.state.budgets.budgets
       }
     },
     beforeMount() {
@@ -119,7 +161,7 @@
     },
     methods: {
       formatDate(date) {
-        return daysjs(date).locale('ru').format('DD MMM, YYYY');
+        return daysjs(date).locale('ru').format('DD MMM, YYYY')
       },
       confirm(id) {
         this.$dialog.confirm({
@@ -144,10 +186,19 @@
       canBeSaved(budget) {
         return budget.start_date && budget.end_date && budget.data.length
       },
+      addLimit(budget) {
+        budget.data.push({
+          category_id: null,
+          limit: null
+        })
+      },
+      removeLimit(budget, index) {
+        budget.data.splice(index, 1)
+      },
       save(budget) {
         this.$store.dispatch('saveBudget', budget).then(() => {
           this.budgets = this.budgets.filter(b => b.internal_id !== budget.internal_id)
-        });
+        })
       }
     },
     mixins: [generatesId]
