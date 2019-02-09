@@ -13,7 +13,7 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <div class="limit-container" v-for="(limit, index) in card.limits">
+          <div class="limit-container" :key="index" v-for="(limit, index) in card.limits">
             <div class="limit-label">
               {{ getCategoryById(limit.category_id).name }}
             </div>
@@ -33,6 +33,17 @@
 <style>
   .limit-container {
     position: relative;
+  }
+
+  .progressbar-text {
+    width: 100%;
+    text-align: right;
+  }
+
+  .progress-info {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
 
@@ -66,7 +77,7 @@
     },
     mounted() {
       this.card.limits.forEach((limit, index) => {
-        let value = Number(limit.limit / 100) * Number(limit.expenses);
+        let value = Math.abs(Number(limit.expenses)) / Number(limit.limit) * 100;
         new ProgressBar.Line(`[data-id="${index}"]`, {
           strokeWidth: 4,
           easing: 'easeInOut',
@@ -90,7 +101,7 @@
           from: { color: '#FFEA82' },
           to: { color: '#ED6A5A' },
           step: (state, bar) => {
-            bar.setText(Number(limit.expenses) + ' / ' + Number(limit.limit) + ' ' + '<b>' + Math.round(value) + ' %' + '</b>');
+            bar.setText('<span class="progress-info">' + Math.abs(Number(limit.expenses)) + ' / ' + Number(limit.limit) + ' ' + '</span><b>' + Math.round(value) + ' %' + '</b>');
              if (bar.value() > 1) {
                 bar.trail.setAttribute('stroke', '#ED6A5A');
             }
