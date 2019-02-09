@@ -22,9 +22,12 @@ const actions = {
           commit('stopLoading')
         })
     },
-    saveBudget({ commit }, budget) {
+    saveBudget({ commit, dispatch }, budget) {
       commit('startLoading')
-      axios.post('/budgets', { budget }).then(() => commit('stopLoading'))
+      axios.post('/budgets', { budget }).then(() => {
+        dispatch('fetchBudgets')
+        commit('stopLoading')
+      })
     },
     deleteBudget({ commit }, id) {
       axios.delete('/budgets/' + id).then(response => {

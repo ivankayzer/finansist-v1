@@ -17,7 +17,7 @@
             <div class="limit-label">
               {{ getCategoryById(limit.category_id).name }}
             </div>
-            <div class="limit" :data-id="index"></div>
+            <div class="limit" :data-id="card.id + '-' + index"></div>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
     mounted() {
       this.card.limits.forEach((limit, index) => {
         let value = Math.abs(Number(limit.expenses)) / Number(limit.limit) * 100;
-        new ProgressBar.Line(`[data-id="${index}"]`, {
+        new ProgressBar.Line(`[data-id="${this.card.id + '-' + index}"]`, {
           strokeWidth: 4,
           easing: 'easeInOut',
           duration: 1400,
@@ -99,11 +99,11 @@
             autoStyleContainer: false
           },
           from: { color: '#FFEA82' },
-          to: { color: '#ED6A5A' },
+          to: { color: '#FFEA82' },
           step: (state, bar) => {
-            bar.setText('<span class="progress-info">' + Math.abs(Number(limit.expenses)) + ' / ' + Number(limit.limit) + ' ' + '</span><b>' + Math.round(value) + ' %' + '</b>');
+            bar.setText('<span class="progress-info">' + Math.abs(Number(limit.expenses)).toFixed(2) + ' / ' + Number(limit.limit) + ' ' + '</span><b>' + Math.round(value) + ' %' + '</b>');
              if (bar.value() > 1) {
-                bar.trail.setAttribute('stroke', '#ED6A5A');
+                bar.trail.setAttribute('stroke', '#FFEA82');
             }
           }
         }).animate(value / 100)
