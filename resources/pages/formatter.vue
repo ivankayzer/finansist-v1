@@ -25,7 +25,8 @@
               v-for="option in categories"
               :value="option.id"
               :key="option.id"
-            >{{ option.name }}</option>
+            >{{ option.name }}
+            </option>
           </b-select>
         </div>
         <div class="column">
@@ -47,84 +48,79 @@
 </template>
 
 <style scoped>
-.my-15 {
-  margin: 15px 0;
-}
+  .my-15 {
+    margin: 15px 0;
+  }
 
-.block {
-  margin-top: 10px;
-}
+  .block {
+    margin-top: 10px;
+  }
 
-.mt-15 {
-  margin-top: 35px;
-}
+  .mt-15 {
+    margin-top: 35px;
+  }
 
-.delete {
-  float: right;
-  margin-right: 30px;
-}
+  .delete {
+    float: right;
+    margin-right: 30px;
+  }
 </style>
 
 <script>
-export default {
-  computed: {
-    categories() {
-      return this.$store.getters.categories
+  import { generatesId } from '../store/mixins'
+
+  export default {
+    computed: {
+      categories() {
+        return this.$store.getters.categories
+      },
+      actions() {
+        return this.$store.state.actions.actions
+      }
     },
-    actions() {
-      return this.$store.state.actions.actions
-    }
-  },
-  methods: {
-    addNew() {
-      this.actions.unshift({
-        internal_id: this.generateId(),
-        action: null,
-        match: null,
-        additional_data: {
-          category_id: null
+    methods: {
+      addNew() {
+        this.actions.unshift({
+          internal_id: this.generateId(),
+          action: null,
+          match: null,
+          additional_data: {
+            category_id: null
+          }
+        })
+      },
+      save(element) {
+        this.$store.dispatch('saveAction', element)
+      },
+      update(element) {
+        this.$store.dispatch('updateAction', element)
+      },
+      remove(element, index) {
+        if (element.id) {
+          this.$store.dispatch('deleteAction', element)
+        } else {
+          this.$store.commit(
+            'setActions',
+            this.actions.filter((element, i) => i !== index)
+          )
         }
-      })
-    },
-    save(element) {
-      this.$store.dispatch('saveAction', element)
-    },
-    update(element) {
-      this.$store.dispatch('updateAction', element)
-    },
-    remove(element, index) {
-      if (element.id) {
-        this.$store.dispatch('deleteAction', element)
-      } else {
-        this.$store.commit(
-          'setActions',
-          this.actions.filter((element, i) => i !== index)
-        )
-      }
-    },
-    generateId() {
-      return (
-        '_' +
-        Math.random()
-          .toString(36)
-          .substr(2, 9)
-      )
-    },
-    canBeSaved(element) {
-      if (!element.action || !element.match) {
-        return false
-      }
+      },
+      canBeSaved(element) {
+        if (!element.action || !element.match) {
+          return false
+        }
 
-      if (element.action === 'assign' && !element.additional_data.category_id) {
-        return false
-      }
+        if (element.action === 'assign' && !element.additional_data.category_id) {
+          return false
+        }
 
-      return true
-    }
-  },
-  beforeMount() {
-    this.$store.dispatch('getCategories')
-    this.$store.dispatch('fetchActions')
+        return true
+      }
+    },
+    beforeMount() {
+      this.$store.dispatch('getCategories')
+      this.$store.dispatch('fetchActions')
+    },
+    mixins: [generatesId]
   }
-}
 </script>
