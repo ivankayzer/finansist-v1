@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="columns mt-30">
-      <budget-card v-for="card in budgetsList" :card="card" :key="card.id" />
+      <budget-card v-for="card in budgetsList" :card="card" :key="card.id"/>
     </div>
   </section>
 </template>
@@ -160,6 +160,15 @@
         budget.data.splice(index, 1)
       },
       save(budget) {
+        let startDate = new Date(budget.start_date)
+        let endDate = new Date(budget.end_date)
+
+        startDate = startDate.setHours(startDate.getHours() + 1)
+        endDate = endDate.setHours(endDate.getHours() + 1)
+
+        budget.start_date = new Date(startDate)
+        budget.end_date = new Date(endDate)
+
         this.$store.dispatch('saveBudget', budget).then(() => {
           this.budgets = this.budgets.filter(b => b.internal_id !== budget.internal_id)
         })
