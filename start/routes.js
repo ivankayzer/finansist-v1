@@ -30,6 +30,7 @@ Route.patch('/transactions/:id', 'TransactionController.update');
 Route.get('/transactions/format', 'TransactionController.format');
 Route.post('/transactions/filter', 'TransactionController.filter');
 Route.get('/transactions/reset', 'TransactionController.reset');
+Route.post('/transactions/add', 'TransactionController.add');
 
 Route.get('/actions/all', 'ActionController.all');
 Route.patch('/actions/:id', 'ActionController.update');

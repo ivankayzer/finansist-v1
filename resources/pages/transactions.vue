@@ -16,6 +16,45 @@
         >Не отформатированные: {{ this.$store.state.transactions.unformatted.length }}</a>
       </div>
     </h1>
+    <section class="new-transaction-section" v-if="showAdd">
+      <div class="columns">
+        <div class="column is-2">
+          <b-field label="Дата">
+            <b-datepicker placeholder="Выбери дату" v-model="newTransaction.date"></b-datepicker>
+          </b-field>
+        </div>
+        <div class="column is-5">
+          <b-field label="Титул">
+            <b-input v-model="newTransaction.title"></b-input>
+          </b-field>
+        </div>
+        <div class="column is-2">
+          <b-field label="Сумма">
+            <b-input v-model="newTransaction.amount"></b-input>
+          </b-field>
+        </div>
+        <div class="column is-2">
+          <b-field label="Категория">
+            <b-select
+              placeholder="Без категории"
+              class="mt-15"
+              v-model="newTransaction.category_id"
+            >
+              <option
+                v-for="option in categories"
+                :value="option.id"
+                :key="option.id"
+              >{{ option.name }}</option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="column is-1">
+          <b-field label="Действия">
+            <a class="button is-success" v-if="canBeSaved" @click="save">Добавить</a>
+          </b-field>
+        </div>
+      </div>
+    </section>
     <section>
       <transactions-table :data="data"></transactions-table>
     </section>
@@ -35,6 +74,10 @@
 .float-right {
   float: right;
 }
+
+.new-transaction-section {
+  margin: 50px 0;
+}
 </style>
 
 
@@ -48,7 +91,13 @@ export default {
   data() {
     return {
       source: "all",
-      showAdd: false
+      showAdd: false,
+      newTransaction: {
+        date: null,
+        title: null,
+        amount: 0,
+        category_id: null
+      }
     };
   },
   computed: {
@@ -56,6 +105,16 @@ export default {
       return this.source === "all"
         ? this.$store.state.transactions.transactions
         : this.$store.state.transactions.unformatted;
+    },
+    categories() {
+      return this.$store.getters.categories;
+    },
+    canBeSaved() {
+      return (
+        this.newTransaction.date &&
+        this.newTransaction.title &&
+        this.newTransaction.amount
+      );
     }
   },
   beforeMount() {
@@ -79,6 +138,19 @@ export default {
     },
     add() {
       this.showAdd = !this.showAdd;
+    },
+    save() {
+      this.$store
+        .dispatch("addNewTransaction", this.newTransaction)
+        .then(response => {
+          this.newTransaction = {
+            date: null,
+            title: null,
+            amount: 0,
+            category_id: null
+          };
+          this.showAdd = false;
+        });
     }
   }
 };

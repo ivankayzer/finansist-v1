@@ -24,6 +24,27 @@ class TransactionController {
     return transactions;
   }
 
+  async add({ request, auth }) {
+    const user = await auth.getUser();
+    const Transaction = use('App/Models/Transaction');
+    const transaction = new Transaction();
+    const { title, date, amount, category_id } = request.all();
+
+    transaction.original_title = title;
+    transaction.paid_at = date.substring(0, 10);
+    transaction.amount = amount;
+    transaction.category_id = category_id;
+    transaction.user_id = user.id;
+    transaction.immutable = true;
+    transaction.formatted_title = title;
+
+    transaction.generateUid();
+
+    transaction.save();
+
+    return transaction;
+  }
+
   async filter({ request, auth }) {
     const user = await auth.getUser();
     const { category, startDate, endDate } = request.all();
