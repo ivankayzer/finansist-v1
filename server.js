@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Http server
@@ -17,11 +15,11 @@
 |     Make sure to pass relative path from the project root.
 */
 
-const { Ignitor } = require('@adonisjs/ignitor')
+const { Ignitor } = require('@adonisjs/ignitor');
 
 new Ignitor(require('@adonisjs/fold'))
   .appRoot(__dirname)
   .fireHttpServer(() => {
-    use('App/Controllers/Http/NuxtController')
+    use('App/Controllers/Http/NuxtController');
   })
-  .catch(console.error)
+  .catch(console.error);

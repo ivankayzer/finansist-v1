@@ -1,6 +1,4 @@
-'use strict'
-
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -9,5 +7,5 @@ module.exports = {
    |--------------------------------------------------------------------------
    */
   dns: Env.get('SENTRY_DNS'),
-  enviroment: Env.get('SENTRY_ENVIROMENT')
-}
+  enviroment: Env.get('SENTRY_ENVIROMENT'),
+};

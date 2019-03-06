@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -13,36 +11,36 @@
 |
 */
 
-const Route = use('Route')
+const Route = use('Route');
 
-Route.post('/login', 'UserController.login')
-Route.post('/register', 'UserController.register')
-Route.post('/getUser', 'UserController.getUser')
+Route.post('/login', 'UserController.login');
+Route.post('/register', 'UserController.register');
+Route.post('/getUser', 'UserController.getUser');
 
-Route.get('/categories', 'CategoryController.all')
-Route.post('/categories/add', 'CategoryController.add')
-Route.delete('/categories/:id', 'CategoryController.delete')
+Route.get('/categories', 'CategoryController.all');
+Route.post('/categories/add', 'CategoryController.add');
+Route.delete('/categories/:id', 'CategoryController.delete');
 
-Route.post('/imports/import', 'ImportController.import')
-Route.post('/imports/transactions', 'ImportController.importTransactions')
+Route.post('/imports/import', 'ImportController.import');
+Route.post('/imports/transactions', 'ImportController.importTransactions');
 
-Route.get('/transactions/all', 'TransactionController.all')
-Route.get('/transactions/unformatted', 'TransactionController.getUnformatted')
-Route.patch('/transactions/:id', 'TransactionController.update')
-Route.get('/transactions/format', 'TransactionController.format')
-Route.post('/transactions/filter', 'TransactionController.filter')
-Route.get('/transactions/reset', 'TransactionController.reset')
+Route.get('/transactions/all', 'TransactionController.all');
+Route.get('/transactions/unformatted', 'TransactionController.getUnformatted');
+Route.patch('/transactions/:id', 'TransactionController.update');
+Route.get('/transactions/format', 'TransactionController.format');
+Route.post('/transactions/filter', 'TransactionController.filter');
+Route.get('/transactions/reset', 'TransactionController.reset');
 
-Route.get('/actions/all', 'ActionController.all')
-Route.patch('/actions/:id', 'ActionController.update')
-Route.delete('/actions/:id', 'ActionController.delete')
-Route.post('/actions', 'ActionController.add')
+Route.get('/actions/all', 'ActionController.all');
+Route.patch('/actions/:id', 'ActionController.update');
+Route.delete('/actions/:id', 'ActionController.delete');
+Route.post('/actions', 'ActionController.add');
 
-Route.get('/budgets/all', 'BudgetController.all')
-Route.post('/budgets', 'BudgetController.add')
-Route.delete('/budgets/:id', 'BudgetController.delete')
+Route.get('/budgets/all', 'BudgetController.all');
+Route.post('/budgets', 'BudgetController.add');
+Route.delete('/budgets/:id', 'BudgetController.delete');
 
-Route.get('/reports/dates', 'ReportController.dates')
-Route.post('/reports/generate', 'ReportController.generate')
+Route.get('/reports/dates', 'ReportController.dates');
+Route.post('/reports/generate', 'ReportController.generate');
 
-Route.any('*', 'NuxtController.render')
+Route.any('*', 'NuxtController.render');

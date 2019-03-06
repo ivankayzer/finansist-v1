@@ -2,6 +2,7 @@
   <div>
     <h1 class="title">
       Транзакции
+      <a class="button is-small is-link is-rounded" @click="add">Добавить новую</a>
       <a class="button is-small is-link is-rounded" @click="format">Форматировать</a>
       <a class="button is-small is-danger is-rounded" @click="reset">Сбросить</a>
       <div class="float-right">
@@ -38,7 +39,7 @@
 
 
 <script>
-import TransactionsTable from '~/components/TransactionsTable'
+import TransactionsTable from "~/components/TransactionsTable";
 
 export default {
   components: {
@@ -46,35 +47,39 @@ export default {
   },
   data() {
     return {
-      source: 'all'
-    }
+      source: "all",
+      showAdd: false
+    };
   },
   computed: {
     data() {
-      return this.source === 'all'
+      return this.source === "all"
         ? this.$store.state.transactions.transactions
-        : this.$store.state.transactions.unformatted
+        : this.$store.state.transactions.unformatted;
     }
   },
   beforeMount() {
-    this.$store.dispatch('fetchTransactions')
-    this.$store.dispatch('fetchUnformatted')
+    this.$store.dispatch("fetchTransactions");
+    this.$store.dispatch("fetchUnformatted");
   },
   methods: {
     format() {
-      this.$store.dispatch('format')
+      this.$store.dispatch("format");
     },
     showAll() {
-      this.source = 'all'
+      this.source = "all";
     },
     showUnformatted() {
-      this.source = 'unformatted'
+      this.source = "unformatted";
     },
     reset() {
-      if (confirm('Ты уверен?')) {
-        this.$store.dispatch('reset')
+      if (confirm("Ты уверен?")) {
+        this.$store.dispatch("reset");
       }
+    },
+    add() {
+      this.showAdd = !this.showAdd;
     }
   }
-}
+};
 </script>

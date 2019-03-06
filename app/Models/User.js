@@ -1,10 +1,8 @@
-'use strict'
-
-const Model = use('Model')
+const Model = use('Model');
 
 class User extends Model {
   static boot() {
-    super.boot()
+    super.boot();
 
     /**
      * A hook to bash the user password before saving
@@ -13,7 +11,7 @@ class User extends Model {
      * Look at `app/Models/Hooks/User.js` file to
      * check the hashPassword method
      */
-    this.addHook('beforeSave', 'User.hashPassword')
+    this.addHook('beforeSave', 'User.hashPassword');
   }
 
   /**
@@ -27,24 +25,24 @@ class User extends Model {
    * @return {Object}
    */
   tokens() {
-    return this.hasMany('App/Models/Token')
+    return this.hasMany('App/Models/Token');
   }
 
   categories() {
-    return this.hasMany('App/Models/Category')
+    return this.hasMany('App/Models/Category');
   }
 
   transactions() {
-    return this.hasMany('App/Models/Transaction')
+    return this.hasMany('App/Models/Transaction');
   }
 
   actions() {
-    return this.hasMany('App/Models/Action')
+    return this.hasMany('App/Models/Action');
   }
 
   budgets() {
-    return this.hasMany('App/Models/Budget')
+    return this.hasMany('App/Models/Budget');
   }
 }
 
-module.exports = User
+module.exports = User;

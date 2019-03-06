@@ -1,7 +1,5 @@
-'use strict'
-
-const Report = require('./Report')
-const collect = require('collect.js')
+const collect = require('collect.js');
+const Report = require('./Report');
 
 class ReportByDays extends Report {
   async generate() {
@@ -11,17 +9,17 @@ class ReportByDays extends Report {
       .betweenDates(this._start, this._end)
       .with('category')
       .orderBy('paid_at')
-      .fetch()
+      .fetch();
 
     transactions = collect(transactions.toJSON())
       .groupBy('paid_at')
-      .map(group => Math.abs(group.sum('amount').toFixed(2)))
+      .map(group => Math.abs(group.sum('amount').toFixed(2)));
 
     return {
       keys: transactions.keys().toArray(),
-      values: transactions.values().toArray()
-    }
+      values: transactions.values().toArray(),
+    };
   }
 }
 
-module.exports = ReportByDays
+module.exports = ReportByDays;

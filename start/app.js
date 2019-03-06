@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Providers
@@ -19,8 +17,8 @@ const providers = [
   '@adonisjs/shield/providers/ShieldProvider',
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/auth/providers/AuthProvider',
-  'adonis-jsonable/providers/JsonableProvider'
-]
+  'adonis-jsonable/providers/JsonableProvider',
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +31,8 @@ const providers = [
 */
 const aceProviders = [
   '@adonisjs/lucid/providers/MigrationsProvider',
-  '@adonisjs/vow/providers/VowProvider'
-]
+  '@adonisjs/vow/providers/VowProvider',
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +46,7 @@ const aceProviders = [
 |   { Route: 'Adonis/Src/Route' }
 |
 */
-const aliases = {}
+const aliases = {};
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +56,6 @@ const aliases = {}
 | Here you store ace commands for your package
 |
 */
-const commands = ['App/Commands/NuxtBuild', 'App/Commands/GenerateUid']
+const commands = ['App/Commands/NuxtBuild', 'App/Commands/GenerateUid'];
 
-module.exports = { providers, aceProviders, aliases, commands }
+module.exports = { providers, aceProviders, aliases, commands };

@@ -1,5 +1,3 @@
-'use strict'
-
 class CategoryController {
   async all({ request, auth }) {
     const user = await auth.getUser();
@@ -23,4 +21,4 @@ class CategoryController {
   }
 }
 
-module.exports = CategoryController
+module.exports = CategoryController;

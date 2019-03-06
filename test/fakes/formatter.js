@@ -3,17 +3,17 @@ module.exports = {
     original_title: 'This is original title',
     formatted_title: null,
     is_ignored: false,
-    save: () => 'did nothing'
+    save: () => 'did nothing',
   },
   formattedTransaction: {
     original_title: 'This is original title',
     formatted_title: 'This is formatted title',
-    is_ignored: false
+    is_ignored: false,
   },
   ignoredTransaction: {
     original_title: 'This is original title',
     formatted_title: null,
-    is_ignored: true
+    is_ignored: true,
   },
   transactionToCrop: {
     original_title:
@@ -21,14 +21,14 @@ module.exports = {
     formatted_title: null,
     is_ignored: false,
     category_id: null,
-    save: () => 'did nothing'
+    save: () => 'did nothing',
   },
   anotherTransactionToCrop: {
     original_title: 'This is original title. This text should be cropped.',
     formatted_title: null,
     is_ignored: false,
     category_id: null,
-    save: () => 'did nothing'
+    save: () => 'did nothing',
   },
   transactionToIgnore: {
     original_title:
@@ -36,7 +36,7 @@ module.exports = {
     formatted_title: null,
     is_ignored: false,
     category_id: null,
-    save: () => 'did nothing'
+    save: () => 'did nothing',
   },
   transactionToAssign: {
     original_title:
@@ -44,33 +44,33 @@ module.exports = {
     formatted_title: null,
     is_ignored: false,
     category_id: null,
-    save: () => 'did nothing'
+    save: () => 'did nothing',
   },
   cropperAction: {
     action: 'crop',
     match: ' This text should be cropped.',
-    additional_data: null
+    additional_data: null,
   },
   cropperActionLowerCase: {
     action: 'crop',
     match: ' this text should be CROPPED.',
-    additional_data: null
+    additional_data: null,
   },
   anotherCropperAction: {
     action: 'crop',
     match: ' original',
-    additional_data: null
+    additional_data: null,
   },
   ignoreAction: {
     action: 'ignore',
     match: 'should be ignored',
-    additional_data: null
+    additional_data: null,
   },
   assignAction: {
     action: 'assign',
     match: 'should be assigned',
     additional_data: {
-      category_id: 7
-    }
-  }
-}
+      category_id: 7,
+    },
+  },
+};

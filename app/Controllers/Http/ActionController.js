@@ -1,47 +1,45 @@
-'use strict'
-
 class ActionController {
   async all({ request, auth }) {
-    const user = await auth.getUser()
+    const user = await auth.getUser();
 
     return user
       .actions()
       .orderBy('created_at', 'desc')
-      .fetch()
+      .fetch();
   }
 
   async add({ request, auth }) {
-    const { action } = request.all()
-    const uniqId = action.internal_id
-    delete action.internal_id
+    const { action } = request.all();
+    const uniqId = action.internal_id;
+    delete action.internal_id;
 
-    const user = await auth.getUser()
-    const model = await user.actions().create(action)
+    const user = await auth.getUser();
+    const model = await user.actions().create(action);
 
     return {
       action: model,
-      idToReplace: uniqId
-    }
+      idToReplace: uniqId,
+    };
   }
 
   async update({ request, auth, params }) {
-    const Action = use('App/Models/Action')
-    let model = await Action.find(params.id)
-    const { action } = request.only(['action'])
+    const Action = use('App/Models/Action');
+    const model = await Action.find(params.id);
+    const { action } = request.only(['action']);
 
-    model.action = action.action
-    model.match = action.match
-    model.additional_data = action.additional_data
+    model.action = action.action;
+    model.match = action.match;
+    model.additional_data = action.additional_data;
 
-    return await model.save()
+    return await model.save();
   }
 
   async delete({ request, auth, params }) {
-    const Action = use('App/Models/Action')
-    const action = await Action.find(params.id)
+    const Action = use('App/Models/Action');
+    const action = await Action.find(params.id);
 
-    action.delete()
+    action.delete();
   }
 }
 
-module.exports = ActionController
+module.exports = ActionController;

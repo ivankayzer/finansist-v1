@@ -1,15 +1,13 @@
-'use strict'
-
 class Report {
   constructor(transactions, start, end) {
-    this._start = start
-    this._end = end
-    this._transactions = transactions
+    this._start = start;
+    this._end = end;
+    this._transactions = transactions;
   }
 
   generate() {
-    return []
+    return [];
   }
 }
 
-module.exports = Report
+module.exports = Report;

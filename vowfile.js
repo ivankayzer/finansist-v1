@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Vow file
@@ -24,7 +22,7 @@ module.exports = (cli, runner) => {
     | line, if http server is not required
     |
     */
-    use('Adonis/Src/Server').listen(process.env.HOST, process.env.PORT)
+    use('Adonis/Src/Server').listen(process.env.HOST, process.env.PORT);
 
     /*
     |--------------------------------------------------------------------------
@@ -35,7 +33,7 @@ module.exports = (cli, runner) => {
     |
     */
     // await ace.call('migration:run', {}, { silent: true })
-  })
+  });
 
   runner.after(async () => {
     /*
@@ -46,7 +44,9 @@ module.exports = (cli, runner) => {
     | Shutdown the HTTP server when all tests have been executed.
     |
     */
-    use('Adonis/Src/Server').getInstance().close()
+    use('Adonis/Src/Server')
+      .getInstance()
+      .close();
 
     /*
     |--------------------------------------------------------------------------
@@ -58,5 +58,5 @@ module.exports = (cli, runner) => {
     |
     */
     // await ace.call('migration:reset', {}, { silent: true })
-  })
-}
+  });
+};

@@ -1,48 +1,48 @@
-import axios from '~/plugins/axios'
+import axios from '~/plugins/axios';
 
 const auth = {
   state: {
-    user: {}
+    user: {},
   },
   mutations: {
     setUser(state, data) {
-      state.user = data
+      state.user = data;
     },
     removeUser(state) {
-      state.user = {}
-    }
+      state.user = {};
+    },
   },
   actions: {
     login({ commit }, data) {
-      commit('startLoading')
-      axios.post('/login', data).then((response) => {
-        localStorage.setItem('token', response.data.token.token)
-        commit('setUser', response.data.user)
-        commit('stopLoading')
-      })
+      commit('startLoading');
+      axios.post('/login', data).then(response => {
+        localStorage.setItem('token', response.data.token.token);
+        commit('setUser', response.data.user);
+        commit('stopLoading');
+      });
     },
     register({ commit }, data) {
-      commit('startLoading')
-      axios.post('/register', data).then((response) => {
-        localStorage.setItem('token', response.data.token.token)
-        commit('setUser', response.data.user)
-        commit('stopLoading')
-      })
+      commit('startLoading');
+      axios.post('/register', data).then(response => {
+        localStorage.setItem('token', response.data.token.token);
+        commit('setUser', response.data.user);
+        commit('stopLoading');
+      });
     },
     getUser({ commit }, token) {
-      commit('startLoading')
-      axios.post('/getUser', token).then((response) => {
-        commit('setUser', response.data)
-        commit('stopLoading')
-      })
+      commit('startLoading');
+      axios.post('/getUser', token).then(response => {
+        commit('setUser', response.data);
+        commit('stopLoading');
+      });
     },
     logout({ commit }) {
-      commit('startLoading')
-      commit('removeUser')
-      localStorage.removeItem('token')
-      commit('stopLoading')
-    }
-  }
-}
+      commit('startLoading');
+      commit('removeUser');
+      localStorage.removeItem('token');
+      commit('stopLoading');
+    },
+  },
+};
 
-export default auth
+export default auth;
