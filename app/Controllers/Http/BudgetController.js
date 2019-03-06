@@ -33,6 +33,9 @@ class BudgetController {
         return limit;
       });
 
+      budget.sum = collect(budget.limits).sum('limit');
+      budget.sumExpenses = collect(budget.limits).sum('expenses');
+
       budgets[key] = budget;
     }
 
