@@ -69,6 +69,11 @@ const transactions = {
         .post('transactions/filter', data)
         .then(response => commit('setReportTransactions', response.data));
     },
+    fetchFilteredTransactionsByDay({ commit }, data) {
+      axios
+        .post('transactions/filter-by-day', data)
+        .then(response => commit('setReportTransactions', response.data));
+    },
     addNewTransaction({ commit, dispatch }, data) {
       commit('startLoading');
       axios.post('transactions/add', data).then(response => {

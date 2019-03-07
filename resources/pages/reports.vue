@@ -44,9 +44,9 @@
       v-if="showReport && type === 'by_category'"
     />
     <apexchart
-      type="line"
+      type="bar"
       height="550"
-      :options="chartOptions"
+      :options="chartDaysOptions"
       :series="series"
       v-if="showReport && type === 'by_days'"
     />
@@ -56,132 +56,183 @@
 </template>
 
 <style>
-  .mb-50 {
-    margin-bottom: 50px !important;
-  }
+.mb-50 {
+  margin-bottom: 50px !important;
+}
 </style>
 
 
 <script>
-  import TransactionsTable from '~/components/TransactionsTable'
+import TransactionsTable from "~/components/TransactionsTable";
+import daysjs from "dayjs";
 
-  export default {
-    components: {
-      TransactionsTable
-    },
-    beforeMount() {
-      this.$store.dispatch('getDateRangeForReport')
-    },
-    data() {
+export default {
+  components: {
+    TransactionsTable
+  },
+  beforeMount() {
+    this.$store.dispatch("getDateRangeForReport");
+  },
+  data() {
+    return {
+      type: null,
+      startDate: null,
+      endDate: null
+    };
+  },
+  methods: {
+    formatDate() {
       return {
-        type: null,
-        startDate: null,
-        endDate: null,
-      }
+        startDate: daysjs(this.startDate).format("YYYY-MM-DD"),
+        endDate: daysjs(this.endDate).format("YYYY-MM-DD")
+      };
     },
-    methods: {
-      formatDate() {
-        let startDate = new Date(this.startDate)
-        let endDate = new Date(this.endDate)
+    generate() {
+      let { startDate, endDate } = this.formatDate();
 
-        startDate = startDate.setHours(startDate.getHours() + 25)
-        endDate = endDate.setHours(endDate.getHours() + 25)
-
-        return { startDate: new Date(startDate), endDate: new Date(endDate) }
-      },
-      generate() {
-        let { startDate, endDate } = this.formatDate()
-
-        this.$store.dispatch('generateReport', {
-          type: this.type,
-          startDate,
-          endDate
-        })
-      }
+      this.$store.dispatch("generateReport", {
+        type: this.type,
+        startDate,
+        endDate
+      });
+    }
+  },
+  computed: {
+    dateMin() {
+      return this.$store.state.reports.min;
     },
-    computed: {
-      dateMin() {
-        return this.$store.state.reports.min
-      },
-      transactions() {
-        return this.$store.state.reports.transactions
-      },
-      dateMax() {
-        return this.$store.state.reports.max
-      },
-      showGenerateButton() {
-        return this.startDate && this.endDate && this.type
-      },
-      showReport() {
-        return (
-          this.$store.state.reports.keys.length &&
-          this.$store.state.reports.values.length
-        )
-      },
-      series() {
-        return [
-          {
-            name: 'Потрачено',
-            data: this.$store.state.reports.values
+    transactions() {
+      return this.$store.state.reports.transactions;
+    },
+    dateMax() {
+      return this.$store.state.reports.max;
+    },
+    showGenerateButton() {
+      return this.startDate && this.endDate && this.type;
+    },
+    showReport() {
+      return (
+        this.$store.state.reports.keys.length &&
+        this.$store.state.reports.values.length
+      );
+    },
+    series() {
+      return [
+        {
+          name: "Потрачено",
+          data: this.$store.state.reports.values
+        }
+      ];
+    },
+    chartOptions() {
+      return {
+        chart: {
+          events: {
+            dataPointSelection: (event, chartContext, config) => {
+              let { startDate, endDate } = this.formatDate();
+              this.$store.dispatch("fetchFilteredTransactions", {
+                category: this.$store.state.reports.keys[config.dataPointIndex],
+                startDate,
+                endDate
+              });
+            }
           }
-        ]
-      },
-      chartOptions() {
-        return {
-          chart: {
-            events: {
-              dataPointSelection: (event, chartContext, config) => {
-                let { startDate, endDate } = this.formatDate()
-                this.$store.dispatch('fetchFilteredTransactions', {
-                  category: this.$store.state.reports.keys[config.dataPointIndex],
-                  startDate,
-                  endDate
-                })
-              }
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "85%",
+            dataLabels: {
+              position: "top"
             }
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              columnWidth: '85%',
-              dataLabels: {
-                position: 'top'
-              }
-            }
-          },
-          dataLabels: {
-            enabled: true,
-            offsetY: -20,
-            style: {
-              fontSize: '12px',
-              colors: ['#304758']
-            }
-          },
-          stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-          },
-          xaxis: {
-            categories: this.$store.state.reports.keys
-          },
-          yaxis: {
-            title: {
-              text: 'PLN'
-            }
-          },
-          fill: {
-            opacity: 1
-          },
-          tooltip: {
-            y: {
-              formatter: function(val) {
-                return val + ' PLN'
-              }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: "12px",
+            colors: ["#304758"]
+          }
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: this.$store.state.reports.keys
+        },
+        yaxis: {
+          title: {
+            text: "PLN"
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val + " PLN";
             }
           }
         }
-      }
+      };
+    },
+    chartDaysOptions() {
+      return {
+        chart: {
+          events: {
+            dataPointSelection: (event, chartContext, config) => {
+              this.$store.dispatch("fetchFilteredTransactionsByDay", {
+                date: this.$store.state.reports.keys[config.dataPointIndex]
+              });
+            }
+          }
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "85%",
+            dataLabels: {
+              position: "top"
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: "12px",
+            colors: ["#304758"]
+          }
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: this.$store.state.reports.keys
+        },
+        yaxis: {
+          title: {
+            text: "PLN"
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val + " PLN";
+            }
+          }
+        }
+      };
     }
   }
+};
 </script>

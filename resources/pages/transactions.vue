@@ -83,6 +83,7 @@
 
 <script>
 import TransactionsTable from "~/components/TransactionsTable";
+import daysjs from "dayjs";
 
 export default {
   components: {
@@ -141,7 +142,12 @@ export default {
     },
     save() {
       this.$store
-        .dispatch("addNewTransaction", this.newTransaction)
+        .dispatch("addNewTransaction", {
+          date: daysjs(this.newTransaction.date).format("YYYY-MM-DD"),
+          title: this.newTransaction.title,
+          amount: this.newTransaction.amount,
+          category_id: this.newTransaction.category_id
+        })
         .then(response => {
           this.newTransaction = {
             date: null,

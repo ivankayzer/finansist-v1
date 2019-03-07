@@ -13,20 +13,8 @@ class Transaction extends Model {
     }
   }
 
-  setPaidAt(value) {
-    if (value) {
-      const [day, month, year] = value.split('-');
-      if (String(day).length === 4) {
-        return value;
-      }
-      return new Date(year, parseInt(month) - 1, parseInt(day) + 1)
-        .toISOString()
-        .slice(0, 10);
-    }
-  }
-
-  getPaidAt(value) {
-    return new Date(value).toISOString().slice(0, 10);
+  static get dates () {
+    return super.dates.concat(['paid_at'])
   }
 
   static scopeUnformatted(query) {

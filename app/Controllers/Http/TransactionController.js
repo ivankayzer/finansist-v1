@@ -45,6 +45,20 @@ class TransactionController {
     return transaction;
   }
 
+  async filterByDay({ request, auth }) {
+    const user = await auth.getUser();
+    const { date } = request.all();
+
+    let transactions = await user
+        .transactions()
+        .expenses()
+        .notIgnored()
+        .where('paid_at', date)
+        .fetch();
+
+    return transactions;
+  }
+
   async filter({ request, auth }) {
     const user = await auth.getUser();
     const { category, startDate, endDate } = request.all();

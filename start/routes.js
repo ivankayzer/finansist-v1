@@ -29,6 +29,7 @@ Route.get('/transactions/unformatted', 'TransactionController.getUnformatted');
 Route.patch('/transactions/:id', 'TransactionController.update');
 Route.get('/transactions/format', 'TransactionController.format');
 Route.post('/transactions/filter', 'TransactionController.filter');
+Route.post('/transactions/filter-by-day', 'TransactionController.filterByDay');
 Route.get('/transactions/reset', 'TransactionController.reset');
 Route.post('/transactions/add', 'TransactionController.add');
 
