@@ -1,7 +1,5 @@
-'use strict'
-
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class AddDefaultIsIgnoredValueSchema extends Schema {
   up() {
@@ -9,13 +7,13 @@ class AddDefaultIsIgnoredValueSchema extends Schema {
       table
         .boolean('is_ignored')
         .defaultTo(0)
-        .alter()
-    })
+        .alter();
+    });
   }
 
   down() {
-    this.table('transactions', table => {})
+    this.table('transactions', table => {});
   }
 }
 
-module.exports = AddDefaultIsIgnoredValueSchema
+module.exports = AddDefaultIsIgnoredValueSchema;

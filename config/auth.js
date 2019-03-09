@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -29,7 +27,7 @@ module.exports = {
     model: 'App/Models/User',
     scheme: 'session',
     uid: 'email',
-    password: 'password'
+    password: 'password',
   },
 
   /*
@@ -50,7 +48,7 @@ module.exports = {
     model: 'App/Models/User',
     scheme: 'basic',
     uid: 'email',
-    password: 'password'
+    password: 'password',
   },
 
   /*
@@ -69,7 +67,7 @@ module.exports = {
     uid: 'username',
     password: 'password',
     options: {
-      secret: 'lfVGqhuFm3X3B31OQzKQNbtlb8EHBsSV'
-    }
-  }
-}
+      secret: 'lfVGqhuFm3X3B31OQzKQNbtlb8EHBsSV',
+    },
+  },
+};

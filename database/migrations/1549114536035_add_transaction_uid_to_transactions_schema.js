@@ -1,16 +1,14 @@
-'use strict'
-
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class AddTransactionUidToTransactionsSchema extends Schema {
-  up () {
-    this.table('transactions', (table) => {
-      table.string('uid')
-    })
+  up() {
+    this.table('transactions', table => {
+      table.string('uid');
+    });
   }
 
-  down () {}
+  down() {}
 }
 
-module.exports = AddTransactionUidToTransactionsSchema
+module.exports = AddTransactionUidToTransactionsSchema;

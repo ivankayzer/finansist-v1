@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import auth from './auth'
-import categories from './categories'
-import imports from './import'
-import transactions from './transactions'
-import actions from './actions'
-import reports from './reports'
-import misc from './misc'
-import budgets from './budgets'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import auth from './auth';
+import categories from './categories';
+import imports from './import';
+import transactions from './transactions';
+import actions from './actions';
+import reports from './reports';
+import misc from './misc';
+import budgets from './budgets';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = () =>
   new Vuex.Store({
@@ -21,8 +21,8 @@ const store = () =>
       actions,
       reports,
       misc,
-      budgets
-    }
-  })
+      budgets,
+    },
+  });
 
-export default store
+export default store;

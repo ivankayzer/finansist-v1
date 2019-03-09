@@ -1,4 +1,4 @@
-import axios from '~/plugins/axios'
+import axios from '~/plugins/axios';
 
 const reports = {
   state: {
@@ -6,37 +6,37 @@ const reports = {
     max: null,
     keys: [],
     values: [],
-    transactions: []
+    transactions: [],
   },
   mutations: {
     setDates(state, { min, max }) {
-      state.min = new Date(min)
-      state.max = new Date(max)
+      state.min = new Date(min);
+      state.max = new Date(max);
     },
     setReportData(state, { keys, values }) {
-      state.keys = keys
-      state.values = values
+      state.keys = keys;
+      state.values = values;
     },
     clearReport(state) {
-      state.keys = []
-      state.values = []
+      state.keys = [];
+      state.values = [];
     },
     setReportTransactions(state, transactions) {
-      state.transactions = transactions
-    }
+      state.transactions = transactions;
+    },
   },
   actions: {
     getDateRangeForReport({ commit }) {
       axios.get('/reports/dates').then(response => {
-        commit('setDates', response.data)
-      })
+        commit('setDates', response.data);
+      });
     },
     generateReport({ commit }, data) {
       axios
         .post('/reports/generate', data)
-        .then(response => commit('setReportData', response.data))
-    }
-  }
-}
+        .then(response => commit('setReportData', response.data));
+    },
+  },
+};
 
-export default reports
+export default reports;

@@ -1,18 +1,18 @@
 const misc = {
   state: {
-    loading: true
+    loading: true,
   },
   mutations: {
     stopLoading(state) {
-      state.loading = false
+      state.loading = false;
     },
     startLoading(state) {
-      state.loading = true
+      state.loading = true;
     },
     init(state) {
-      state.loading = false
-    }
-  }
-}
+      state.loading = false;
+    },
+  },
+};
 
-export default misc
+export default misc;
