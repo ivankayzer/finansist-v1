@@ -8,18 +8,12 @@
           <div class="columns">
             <div class="column">
               <b-field label="Дата начала">
-                <b-datepicker
-                  placeholder="Выбери дату"
-                  v-model="budget.start_date"
-                ></b-datepicker>
+                <b-datepicker placeholder="Выбери дату" v-model="budget.start_date"></b-datepicker>
               </b-field>
             </div>
             <div class="column">
               <b-field label="Дата конца">
-                <b-datepicker
-                  placeholder="Выбери дату"
-                  v-model="budget.end_date"
-                ></b-datepicker>
+                <b-datepicker placeholder="Выбери дату" v-model="budget.end_date"></b-datepicker>
               </b-field>
             </div>
           </div>
@@ -30,153 +24,155 @@
               <div class="columns">
                 <div class="column">
                   <b-field label="Лимит">
-                    <b-input
-                      type="number"
-                      v-model="data.limit"
-                    >
-                    </b-input>
+                    <b-input type="number" v-model="data.limit"></b-input>
                   </b-field>
                 </div>
                 <div class="column">
                   <b-field label="Категория">
-                    <b-select
-                      placeholder="Без категории"
-                      class="mt-15"
-                      v-model="data.category_id"
-                    >
+                    <b-select placeholder="Без категории" class="mt-15" v-model="data.category_id">
                       <option
                         v-for="option in categories"
                         :value="option.id"
                         :key="option.id"
-                      >{{ option.name }}
-                      </option>
+                      >{{ option.name }}</option>
                     </b-select>
                   </b-field>
                 </div>
               </div>
               <a class="delete add-row" @click="addLimit(budget)"></a>
-              <a class="delete remove-row" v-if="budget.data.length > 1" @click="removeLimit(budget, index)"></a>
+              <a
+                class="delete remove-row"
+                v-if="budget.data.length > 1"
+                @click="removeLimit(budget, index)"
+              ></a>
             </div>
           </div>
         </div>
       </div>
       <div class="columns">
         <div class="column">
-          <a
-            class="button is-success"
-            v-if="canBeSaved(budget)"
-            @click="save(budget)"
-          >Сохранить</a>
+          <a class="button is-success" v-if="canBeSaved(budget)" @click="save(budget)">Сохранить</a>
         </div>
       </div>
     </div>
     <div class="columns mt-30">
       <budget-card v-for="card in budgetsList" :card="card" :key="card.id"/>
     </div>
+    <section>
+      <transactions-table :data="transactions" v-if="transactions.length"></transactions-table>
+    </section>
   </section>
 </template>
 
 <style>
-  .budget {
-    margin-top: 30px;
-  }
+.budget {
+  margin-top: 30px;
+}
 
-  .mt-30 {
-    margin-top: 30px;
-  }
+.mt-30 {
+  margin-top: 30px;
+}
 
-  .relative {
-    position: relative;
-  }
+.relative {
+  position: relative;
+}
 
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 
-  .add-row {
-    position: absolute;
-    transform: rotate(45deg);
-    bottom: 45px;
-    right: 15px;
-  }
+.add-row {
+  position: absolute;
+  transform: rotate(45deg);
+  bottom: 45px;
+  right: 15px;
+}
 
-  .remove-row {
-    position: absolute;
-    transform: rotate(45deg);
-    bottom: 45px;
-    right: 45px;
-  }
+.remove-row {
+  position: absolute;
+  transform: rotate(45deg);
+  bottom: 45px;
+  right: 45px;
+}
 
-  .remove-row:before {
-    content: none;
-  }
+.remove-row:before {
+  content: none;
+}
 </style>
 
 <script>
-  import BudgetCard from '../components/BudgetCard'
-  import { generatesId } from '../store/mixins'
-  import 'dayjs/locale/ru'
+import TransactionsTable from "~/components/TransactionsTable";
+import BudgetCard from "../components/BudgetCard";
+import { generatesId } from "../store/mixins";
+import "dayjs/locale/ru";
+import daysjs from "dayjs";
 
-  export default {
-    data() {
-      return {
-        budgets: []
-      }
+export default {
+  data() {
+    return {
+      budgets: []
+    };
+  },
+  computed: {
+    categories() {
+      return this.$store.getters.categories;
     },
-    computed: {
-      categories() {
-        return this.$store.getters.categories
-      },
-      budgetsList() {
-        return this.$store.state.budgets.budgets
-      }
+    transactions() {
+      return this.$store.state.reports.transactions;
     },
-    beforeMount() {
-      this.$store.dispatch('fetchBudgets')
-      this.$store.dispatch('getCategories')
-    },
-    methods: {
-      addNew() {
-        this.budgets.unshift({
-          internal_id: this.generateId(),
-          start_date: null,
-          end_date: null,
-          data: [{
+    budgetsList() {
+      return this.$store.state.budgets.budgets;
+    }
+  },
+  beforeMount() {
+    this.$store.dispatch("fetchBudgets");
+    this.$store.dispatch("getCategories");
+  },
+  methods: {
+    addNew() {
+      this.budgets.unshift({
+        internal_id: this.generateId(),
+        start_date: null,
+        end_date: null,
+        data: [
+          {
             category_id: null,
             limit: null
-          }]
-        })
-      },
-      canBeSaved(budget) {
-        return budget.start_date && budget.end_date && budget.data.filter(data => data.category_id && data.limit).length
-      },
-      addLimit(budget) {
-        budget.data.push({
-          category_id: null,
-          limit: null
-        })
-      },
-      removeLimit(budget, index) {
-        budget.data.splice(index, 1)
-      },
-      save(budget) {
-        let startDate = new Date(budget.start_date)
-        let endDate = new Date(budget.end_date)
-
-        startDate = startDate.setHours(startDate.getHours() + 1)
-        endDate = endDate.setHours(endDate.getHours() + 1)
-
-        budget.start_date = new Date(startDate)
-        budget.end_date = new Date(endDate)
-
-        this.$store.dispatch('saveBudget', budget).then(() => {
-          this.budgets = this.budgets.filter(b => b.internal_id !== budget.internal_id)
-        })
-      }
+          }
+        ]
+      });
     },
-    mixins: [generatesId],
-    components: {
-      BudgetCard
+    canBeSaved(budget) {
+      return (
+        budget.start_date &&
+        budget.end_date &&
+        budget.data.filter(data => data.category_id && data.limit).length
+      );
+    },
+    addLimit(budget) {
+      budget.data.push({
+        category_id: null,
+        limit: null
+      });
+    },
+    removeLimit(budget, index) {
+      budget.data.splice(index, 1);
+    },
+    save(budget) {
+      budget.start_date = daysjs(budget.start_date).format("YYYY-MM-DD");
+      budget.end_date = daysjs(budget.end_date).format("YYYY-MM-DD");
+
+      this.$store.dispatch("saveBudget", budget).then(() => {
+        this.budgets = this.budgets.filter(
+          b => b.internal_id !== budget.internal_id
+        );
+      });
     }
+  },
+  mixins: [generatesId],
+  components: {
+    BudgetCard,
+    TransactionsTable
   }
+};
 </script>

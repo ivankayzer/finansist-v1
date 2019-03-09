@@ -14,7 +14,12 @@
       <div class="card-content">
         <div class="content">
           <div class="limit-container" :key="index" v-for="(limit, index) in card.limits">
-            <div class="limit-label">{{ getCategoryById(limit.category_id).name }}</div>
+            <div class="limit-label">
+              <a
+                href="#"
+                @click="getTransactions(limit.category_id)"
+              >{{ getCategoryById(limit.category_id).name }}</a>
+            </div>
             <div class="limit" :data-id="card.id + '-' + index"></div>
           </div>
         </div>
@@ -63,6 +68,16 @@ export default {
       return daysjs(date)
         .locale("ru")
         .format("DD MMM, YYYY");
+    },
+    getTransactions(category_id) {
+      let startDate = daysjs(this.card.start_date).format("YYYY-MM-DD");
+      let endDate = daysjs(this.card.end_date).format("YYYY-MM-DD");
+
+      this.$store.dispatch("fetchFilteredTransactions", {
+        category: this.getCategoryById(category_id).name,
+        startDate,
+        endDate
+      });
     },
     confirm(id) {
       this.$dialog.confirm({
