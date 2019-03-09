@@ -25,6 +25,10 @@ class Transaction extends Model {
     return query.where('amount', '<', 0);
   }
 
+  static scopeIncomes(query) {
+    return query.where('amount', '>', 0);
+  }
+
   static scopeNotIgnored(query) {
     return query.where('is_ignored', 0);
   }

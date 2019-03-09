@@ -4,18 +4,22 @@ const transactions = {
   state: {
     transactions: [],
     unformatted: [],
+    incomes: [],
   },
   mutations: {
-    setTransactions(state, transactions) {
-      state.transactions = transactions;
+    setTransactions(state, list) {
+      state.transactions = list;
     },
     updateTransaction(state, transaction) {
       state.transactions = state.transactions.map(transact =>
         transact.id === transaction.id ? transaction : transact
       );
     },
-    setUnformatted(state, transactions) {
-      state.unformatted = transactions;
+    setUnformatted(state, list) {
+      state.unformatted = list;
+    },
+    setIncomes(state, list) {
+      state.incomes = list;
     },
   },
   actions: {
@@ -29,6 +33,11 @@ const transactions = {
     fetchUnformatted({ commit }) {
       axios.get('transactions/unformatted').then(response => {
         commit('setUnformatted', response.data);
+      });
+    },
+    fetchIncomes({ commit }) {
+      axios.get('transactions/incomes').then(response => {
+        commit('setIncomes', response.data);
       });
     },
     updateTransactionCategory({ commit }, { categoryId, id }) {

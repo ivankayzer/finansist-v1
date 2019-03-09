@@ -14,6 +14,10 @@
           :class="['button is-small is-rounded ' + (this.source === 'unformatted' ? 'is-dark' : '')]"
           @click="showUnformatted"
         >Не отформатированные: {{ this.$store.state.transactions.unformatted.length }}</a>
+        <a
+          :class="['button is-small is-rounded ' + (this.source === 'incomes' ? 'is-dark' : '')]"
+          @click="showIncomes"
+        >Доходы: {{ this.$store.state.transactions.incomes.length }}</a>
       </div>
     </h1>
     <section class="new-transaction-section" v-if="showAdd">
@@ -103,9 +107,15 @@ export default {
   },
   computed: {
     data() {
-      return this.source === "all"
-        ? this.$store.state.transactions.transactions
-        : this.$store.state.transactions.unformatted;
+      let transactions = this.$store.state.transactions;
+      switch (this.source) {
+        case "unformatted":
+          return transactions.unformatted;
+        case "incomes":
+          return transactions.incomes;
+        default:
+          return transactions.transactions;
+      }
     },
     categories() {
       return this.$store.getters.categories;
@@ -121,6 +131,7 @@ export default {
   beforeMount() {
     this.$store.dispatch("fetchTransactions");
     this.$store.dispatch("fetchUnformatted");
+    this.$store.dispatch("fetchIncomes");
   },
   methods: {
     format() {
@@ -131,6 +142,9 @@ export default {
     },
     showUnformatted() {
       this.source = "unformatted";
+    },
+    showIncomes() {
+      this.source = "incomes";
     },
     reset() {
       if (confirm("Ты уверен?")) {

@@ -24,6 +24,17 @@ class TransactionController {
     return transactions;
   }
 
+  async getIncomes({ auth }) {
+    const user = await auth.getUser();
+
+    const transactions = await user
+      .transactions()
+      .incomes()
+      .fetch();
+
+    return transactions;
+  }
+
   async add({ request, auth }) {
     const user = await auth.getUser();
     const Transaction = use('App/Models/Transaction');
