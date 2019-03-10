@@ -67,7 +67,12 @@ class ImportController {
         const model = new Transaction();
 
         for (const key in columns) {
-          model[columns[key]] = transaction[key];
+          if (columns[key] === 'paid_at') {
+            let [day, month, year] = transaction[key].split('-')
+            model[columns[key]] = `${year}-${month}-${day}`;
+          } else {
+            model[columns[key]] = transaction[key];
+          }
         }
 
         const uid = model.generateUid();
