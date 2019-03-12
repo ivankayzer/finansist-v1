@@ -26,8 +26,8 @@
       </div>
       <footer class="card-footer">
         <div class="card-footer-item">
-          <p>Ожидаемо: {{ card.sum }}</p>
-          <p>Потрачено: {{ Math.abs(card.sumExpenses) }}</p>
+          <p>Ожидаемо: {{ card.sum.toFixed(2) }}</p>
+          <p>Потрачено: {{ Math.abs(card.sumExpenses).toFixed(2) }}</p>
         </div>
         <a href="#" class="card-footer-item" @click="confirm(card.id)">Удалить</a>
       </footer>
