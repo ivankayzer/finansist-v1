@@ -134,13 +134,30 @@ export default {
         internal_id: this.generateId(),
         start_date: null,
         end_date: null,
-        data: [
-          {
-            category_id: null,
-            limit: null
-          }
-        ]
+        data: this.fillBudgetValues()
       });
+    },
+    fillBudgetValues() {
+      const categoriesIds = this.categories.map(category => category.id);
+      const usedIds = [];
+      const previousLimits = this.budgetsList[0].limits.map(limit => {
+        usedIds.push(limit.category_id);
+        return {
+          category_id: limit.category_id,
+          limit: limit.limit
+        };
+      });
+
+      const limits = categoriesIds.map(id => {
+        if (usedIds.indexOf(id) === -1) {
+          return {
+            category_id: id,
+            limit: 0
+          };
+        }
+      });
+
+      return previousLimits.concat(limits.filter(Boolean));
     },
     canBeSaved(budget) {
       return (
