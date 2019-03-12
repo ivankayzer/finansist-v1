@@ -101,7 +101,7 @@ export default {
     this.card.limits.forEach((limit, index) => {
       let value =
         Number(limit.limit) === 0
-          ? 0
+          ? Math.abs(Number(limit.expenses)) / 1
           : (Math.abs(Number(limit.expenses)) / Number(limit.limit)) * 100;
       new ProgressBar.Line(`[data-id="${this.card.id + "-" + index}"]`, {
         strokeWidth: 4,
