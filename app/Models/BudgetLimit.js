@@ -1,9 +1,22 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use('Model');
+const Model = use("Model");
+const Decimal = require("decimal.js");
 
 class BudgetLimit extends Model {
   static get table() {
-    return 'budget_limit';
+    return "budget_limit";
+  }
+
+  setLimit(value) {
+    if (value) {
+      return Decimal(value.replace(",", "."))
+        .mul(100)
+        .toNumber();
+    }
+  }
+
+  getLimit(value) {
+    return value / 100;
   }
 
   static get createdAtColumn() {
