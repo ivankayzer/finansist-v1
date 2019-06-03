@@ -1,9 +1,10 @@
-const Action = require('./Action');
+const Action = require("./Action");
 
 class Assigner extends Action {
   performAction() {
     if (this.satisfiesMatchCondition()) {
       this._transaction.category_id = this._action.additional_data.category_id;
+      this._transaction.keyword = this._action.match;
     }
 
     return this._transaction;

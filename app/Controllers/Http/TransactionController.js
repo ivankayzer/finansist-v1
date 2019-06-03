@@ -1,6 +1,6 @@
-const Formatter = require('../../Services/Formatter');
+const Formatter = require("../../Services/Formatter");
 
-const Transaction = use('App/Models/Transaction');
+const Transaction = use("App/Models/Transaction");
 
 class TransactionController {
   async all({ request, auth }) {
@@ -8,7 +8,7 @@ class TransactionController {
     return this.formatTransactions(
       await user
         .transactions()
-        .orderBy('paid_at', 'desc')
+        .orderBy("paid_at", "desc")
         .fetch()
     );
   }
@@ -37,7 +37,7 @@ class TransactionController {
 
   async add({ request, auth }) {
     const user = await auth.getUser();
-    const Transaction = use('App/Models/Transaction');
+    const Transaction = use("App/Models/Transaction");
     const transaction = new Transaction();
     const { title, date, amount, category_id } = request.all();
 
@@ -61,11 +61,11 @@ class TransactionController {
     const { date } = request.all();
 
     let transactions = await user
-        .transactions()
-        .expenses()
-        .notIgnored()
-        .where('paid_at', date)
-        .fetch();
+      .transactions()
+      .expenses()
+      .notIgnored()
+      .where("paid_at", date)
+      .fetch();
 
     return transactions;
   }
@@ -76,22 +76,22 @@ class TransactionController {
 
     let categoryModel = null;
 
-    if (category !== 'Без категории') {
-      const Category = use('App/Models/Category');
+    if (category !== "Без категории") {
+      const Category = use("App/Models/Category");
       categoryModel = await Category.query()
-        .where('name', category)
+        .where("name", category)
         .first();
     }
 
     let transactions = [];
 
-    if (category !== 'Без категории') {
+    if (category !== "Без категории") {
       transactions = await user
         .transactions()
         .expenses()
         .notIgnored()
         .betweenDates(startDate, endDate)
-        .where('category_id', categoryModel.id)
+        .where("category_id", categoryModel.id)
         .fetch();
     } else {
       transactions = await user
@@ -99,7 +99,7 @@ class TransactionController {
         .expenses()
         .notIgnored()
         .betweenDates(startDate, endDate)
-        .whereNull('category_id')
+        .whereNull("category_id")
         .fetch();
     }
 
@@ -129,8 +129,9 @@ class TransactionController {
         formatted_title,
         category_id,
         is_ignored,
+        keyword
       } = formattedTransactions[model.id];
-      model.merge({ formatted_title, category_id, is_ignored });
+      model.merge({ formatted_title, category_id, is_ignored, keyword });
       await model.save();
     }
 
@@ -139,7 +140,7 @@ class TransactionController {
 
   async update({ request, params }) {
     const transaction = await Transaction.find(params.id);
-    const attributes = request.only(['category_id', 'is_ignored', 'immutable']);
+    const attributes = request.only(["category_id", "is_ignored", "immutable"]);
 
     for (const key in attributes) {
       transaction[key] = attributes[key];
