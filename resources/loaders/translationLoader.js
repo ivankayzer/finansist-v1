@@ -13,11 +13,13 @@ module.exports = {
     }
 
     getDirectories(dir).forEach(locale => {
-     fs
-        .readdirSync(dir + "/" + locale)
-        .forEach(file => {
-          translations[locale][file] = require("./../locales/" + locale + "/" + file);
-        });
+      translations[locale] = {};
+      fs.readdirSync(dir + "/" + locale).forEach(file => {
+        translations[locale][file.split(".")[0]] = require("./../locales/" +
+          locale +
+          "/" +
+          file);
+      });
     });
 
     return translations;

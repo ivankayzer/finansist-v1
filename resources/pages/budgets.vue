@@ -1,19 +1,19 @@
 <template>
   <section>
-    <h1 class="title">Бюджеты</h1>
-    <a class="button is-link is-rounded my-15" @click="addNew">Добавить новый</a>
+    <h1 class="title">{{ $t('common.budgets') }}</h1>
+    <a class="button is-link is-rounded my-15" @click="addNew">{{ $t('budgets.add_new') }}</a>
     <div class="budget" v-for="budget in budgets">
       <div class="columns">
         <div class="column is-half">
           <div class="columns">
             <div class="column">
-              <b-field label="Дата начала">
-                <b-datepicker placeholder="Выбери дату" v-model="budget.start_date"></b-datepicker>
+              <b-field :label="$t('budgets.start_date')">
+                <b-datepicker :placeholder="$t('common.select_date')" v-model="budget.start_date"></b-datepicker>
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Дата конца">
-                <b-datepicker placeholder="Выбери дату" v-model="budget.end_date"></b-datepicker>
+              <b-field :label="$t('budgets.end_date')">
+                <b-datepicker :placeholder="$t('common.select_date')" v-model="budget.end_date"></b-datepicker>
               </b-field>
             </div>
           </div>
@@ -23,13 +23,13 @@
             <div class="column relative is-12" v-for="(data, index) in budget.data">
               <div class="columns">
                 <div class="column">
-                  <b-field label="Лимит">
+                  <b-field :label="$t('budgets.limit')">
                     <b-input type="number" v-model="data.limit"></b-input>
                   </b-field>
                 </div>
                 <div class="column">
-                  <b-field label="Категория">
-                    <b-select placeholder="Без категории" class="mt-15" v-model="data.category_id">
+                  <b-field :label="$t('common.category')">
+                    <b-select :placeholder="$t('common.no_category')" class="mt-15" v-model="data.category_id">
                       <option
                         v-for="option in categories"
                         :value="option.id"
@@ -51,7 +51,7 @@
       </div>
       <div class="columns">
         <div class="column">
-          <a class="button is-success" v-if="canBeSaved(budget)" @click="save(budget)">Сохранить</a>
+          <a class="button is-success" v-if="canBeSaved(budget)" @click="save(budget)">{{ $t('common.save') }}</a>
         </div>
       </div>
     </div>

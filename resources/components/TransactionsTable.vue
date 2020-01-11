@@ -14,42 +14,42 @@
 
       <b-table-column
         field="date"
-        label="Дата"
+        :label="$t('common.date')"
         width="40"
         centered
       >{{ new Date(props.row.paid_at).toLocaleString('ru').split(',').shift() }}</b-table-column>
 
-      <b-table-column field="title" label="Титул" width="100">
+      <b-table-column field="title" :label="$t('transactions.title')" width="100">
         {{ (props.row.formatted_title && props.row.formatted_title.length) ? props.row.formatted_title :
         props.row.original_title }}
       </b-table-column>
 
-      <b-table-column field="amount" label="Сумма" width="50" sortable centered>
+      <b-table-column field="amount" :label="$t('transactions.sum')" width="50" sortable centered>
         <p
           :class="props.row.amount > 0 ? 'has-text-primary' : 'has-text-danger'"
         >{{ props.row.amount }}</p>
       </b-table-column>
 
-      <b-table-column field="category" label="Категория" width="50" centered>
+      <b-table-column field="category" :label="$t('common.category')" width="50" centered>
         <b-select
           :value="props.row.category_id"
           :data-id="props.row.id"
-          placeholder="Без категории"
+          :placeholder="$t('common.no_category')"
           @input.native="changeCategory"
         >
           <option v-for="option in categories" :value="option.id" :key="option.id">{{ option.name }}</option>
         </b-select>
       </b-table-column>
 
-      <b-table-column field="is_formatted" label="Формат" width="20" centered>
+      <b-table-column field="is_formatted" :label="$t('transactions.format')" width="20" centered>
         <span
           class="tag is-success"
           v-if="props.row.formatted_title && props.row.formatted_title.length"
-        >Да</span>
-        <span class="tag is-danger" v-else>Нет</span>
+        >{{ $t('common.yes') }}</span>
+        <span class="tag is-danger" v-else>{{ $t('common.no') }}</span>
       </b-table-column>
 
-      <b-table-column field="is_ignored" label="Игнор" width="20" sortable centered>
+      <b-table-column field="is_ignored" :label="$t('transactions.ignore')" width="20" sortable centered>
         <b-checkbox
           :value="props.row.is_ignored"
           :data-id="props.row.id"
@@ -58,7 +58,7 @@
         ></b-checkbox>
       </b-table-column>
 
-      <b-table-column field="immutable" label="Блокировка" width="20" centered>
+      <b-table-column field="immutable" :label="$t('transactions.immutable')" width="20" centered>
         <b-checkbox
           :value="props.row.immutable"
           :data-id="props.row.id"

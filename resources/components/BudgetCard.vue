@@ -26,10 +26,10 @@
       </div>
       <footer class="card-footer">
         <div class="card-footer-item">
-          <p>Ожидаемо: {{ card.sum }}</p>
-          <p>Потрачено: {{ Math.abs(card.sumExpenses) }}</p>
+          <p>{{ $t('budgets.expected') }}: {{ card.sum }}</p>
+          <p>{{ $t('budgets.spent') }}: {{ Math.abs(card.sumExpenses) }}</p>
         </div>
-        <a href="#" class="card-footer-item" @click="confirm(card.id)">Удалить</a>
+        <a href="#" class="card-footer-item" @click="confirm(card.id)">{{ $t('common.delete') }}</a>
       </footer>
     </div>
   </div>
