@@ -2,7 +2,7 @@
   <div class="menu">
     <div class="menu-list" v-if="!Object.keys(this.$store.state.auth.user).length">
       <div class="left">
-        <nuxt-link to="/login">Войти</nuxt-link>
+        <nuxt-link to="/login">{{ $t('nav.sign-in') }}</nuxt-link>
         <nuxt-link to="/register">Регистрация</nuxt-link>
       </div>
     </div>

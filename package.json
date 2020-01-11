@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@adonisjs/ace": "^4.0.7",
+    "@adonisjs/antl": "^2.0.7",
     "@adonisjs/auth": "^2.0.10",
     "@adonisjs/bodyparser": "^1.0.8",
     "@adonisjs/cors": "^1.0.2",
@@ -41,6 +42,7 @@
     "mysql": "^2.16.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.2.1",
+    "nuxt-i18n": "^6.4.1",
     "papaparse": "^4.6.3",
     "pg": "^7.8.0",
     "progressbar.js": "^1.0.1",

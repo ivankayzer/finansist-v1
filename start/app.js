@@ -18,6 +18,7 @@ const providers = [
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/auth/providers/AuthProvider',
   'adonis-jsonable/providers/JsonableProvider',
+  '@adonisjs/antl/providers/AntlProvider',
 ];
 
 /*

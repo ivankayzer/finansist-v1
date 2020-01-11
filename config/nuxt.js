@@ -1,5 +1,6 @@
 const pkg = require('../package');
 const { resolve } = require('path');
+const translationLoader = require('../resources/loaders/translationLoader');
 
 module.exports = {
   mode: 'universal',
@@ -47,6 +48,17 @@ module.exports = {
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     '@nuxtjs/sentry',
+    [
+      'nuxt-i18n',
+      {
+        locales: ['en', 'ru'],
+        defaultLocale: 'en',
+        vueI18n: {
+          fallbackLocale: 'en',
+          messages: translationLoader.getTranslations()
+        },
+      },
+    ],
   ],
 
   sentry: {
