@@ -1,3 +1,5 @@
+const Antl = use('Antl');
+
 class UserController {
   async login({ request, auth }) {
     const { username, password } = request.all();
@@ -5,7 +7,7 @@ class UserController {
     try {
       await auth.attempt(username, password);
     } catch (error) {
-      return 'Missing or invalid jwt token';
+      return Antl.formatMessage('auth.invalid_jwt');
     }
 
     const User = use('App/Models/User');
@@ -40,7 +42,7 @@ class UserController {
     try {
       return await auth.getUser();
     } catch (error) {
-      return 'Missing or invalid jwt token';
+      return Antl.formatMessage('auth.invalid_jwt');
     }
   }
 }

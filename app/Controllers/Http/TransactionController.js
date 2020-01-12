@@ -1,4 +1,5 @@
 const Formatter = require("../../Services/Formatter");
+const Antl = use('Antl');
 
 const Transaction = use("App/Models/Transaction");
 
@@ -16,23 +17,19 @@ class TransactionController {
   async getUnformatted({ auth }) {
     const user = await auth.getUser();
 
-    const transactions = await user
+    return await user
       .transactions()
       .unformatted()
       .fetch();
-
-    return transactions;
   }
 
   async getIncomes({ auth }) {
     const user = await auth.getUser();
 
-    const transactions = await user
+    return await user
       .transactions()
       .incomes()
       .fetch();
-
-    return transactions;
   }
 
   async add({ request, auth }) {
@@ -60,14 +57,12 @@ class TransactionController {
     const user = await auth.getUser();
     const { date } = request.all();
 
-    let transactions = await user
+    return await user
       .transactions()
       .expenses()
       .notIgnored()
       .where("paid_at", date)
       .fetch();
-
-    return transactions;
   }
 
   async filter({ request, auth }) {
@@ -76,7 +71,7 @@ class TransactionController {
 
     let categoryModel = null;
 
-    if (category !== "Без категории") {
+    if (category !== Antl.formatMessage('common.no_category')) {
       const Category = use("App/Models/Category");
       categoryModel = await Category.query()
         .where("name", category)
@@ -85,7 +80,7 @@ class TransactionController {
 
     let transactions = [];
 
-    if (category !== "Без категории") {
+    if (category !== Antl.formatMessage('common.no_category')) {
       transactions = await user
         .transactions()
         .expenses()

@@ -1,18 +1,18 @@
 <template>
   <div>
     <section>
-        <b-field label="Имя пользователя">
+        <b-field :label="$t('auth.username')">
             <b-input placeholder="johndoe" v-model="username" type="text" maxlength="30"></b-input>
         </b-field>
 
-        <b-field label="Пароль">
+        <b-field :label="$t('auth.password')">
             <b-input placeholder="***********" v-model="password" value="" type="password" maxlength="30"></b-input>
         </b-field>
 
         <b-field>
             <p class="control">
                 <button class="button is-link" @click="login">
-                  Войти
+                  {{ $t('common.sign-in') }}
                 </button>
             </p>
         </b-field>

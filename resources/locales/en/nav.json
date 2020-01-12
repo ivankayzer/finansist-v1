@@ -1,11 +1,11 @@
 {
   "sign-in": "Sign in",
-  "sign-up": "Регистрация",
-  "sign-out": "Выйти",
-  "transactions": "Транзакции",
-  "categories": "Категории",
-  "import": "Импорт",
-  "formatting": "Форматирование",
-  "reports": "Отчеты",
-  "budgets": "Бюджеты"
+  "sign-up": "Sign up",
+  "sign-out": "Sign out",
+  "transactions": "Transactions",
+  "categories": "Categories",
+  "import": "Import",
+  "formatting": "Formatting",
+  "reports": "Reports",
+  "budgets": "Budgets"
 }

@@ -2,9 +2,9 @@
   <div>
     <div class="columns">
       <div class="column is-half">
-        <b-field label="Дата начала">
+        <b-field :label="$t('reports.start_date')">
           <b-datepicker
-            placeholder="Выбери дату"
+            :placeholder="$t('common.select_date')"
             v-model="startDate"
             :min-date="dateMin"
             :max-date="dateMax"
@@ -12,9 +12,9 @@
         </b-field>
       </div>
       <div class="column is-half">
-        <b-field label="Дата конца">
+        <b-field :label="$t('reports.end_date')">
           <b-datepicker
-            placeholder="Выбери дату"
+            :placeholder="$t('common.select_date')"
             v-model="endDate"
             :min-date="dateMin"
             :max-date="dateMax"
@@ -25,14 +25,14 @@
 
     <div class="columns">
       <div class="column">
-        <b-radio v-model="type" type="is-dark" native-value="by_category">По категории</b-radio>
-        <b-radio v-model="type" type="is-dark" native-value="by_days">По дням</b-radio>
+        <b-radio v-model="type" type="is-dark" native-value="by_category">{{ $t('reports.by_category') }}</b-radio>
+        <b-radio v-model="type" type="is-dark" native-value="by_days">{{ $t('reports.by_days') }}</b-radio>
       </div>
     </div>
 
     <div class="columns mb-50" v-show="showGenerateButton">
       <div class="column">
-        <a class="button is-link is-rounded" @click="generate">Сгенерировать</a>
+        <a class="button is-link is-rounded" @click="generate">{{ $t('reports.generate') }}</a>
       </div>
     </div>
 
@@ -119,7 +119,7 @@ export default {
     series() {
       return [
         {
-          name: "Потрачено",
+          name: $t('reports.spent'),
           data: this.$store.state.reports.values
         }
       ];

@@ -1,10 +1,10 @@
 <template>
   <div>
     <section>
-      <h1 class="title">Импорт с файла .csv</h1>
+      <h1 class="title">{{ $t('imports.csv_import') }}</h1>
       <div v-if="!this.$store.state.imports.importSuccess">
         <h2 class="subtitle">
-          Разделитель
+          {{ $t('imports.separator') }}
           <b>,</b>
         </h2>
 
@@ -14,7 +14,7 @@
               <b-upload v-model="files" :native="true" :multiple="false">
                 <a class="button is-dark">
                   <b-icon icon="upload"></b-icon>
-                  <span>Загрузить файл</span>
+                  <span>{{ $t('imports.upload_file') }}</span>
                 </a>
               </b-upload>
               <span class="file-name" v-if="file">{{ file.name }}</span>
@@ -23,14 +23,14 @@
           <div class="column">
             <b-field v-if="file">
               <p class="control">
-                <button class="button is-link" @click="importCsv">Импортировать</button>
+                <button class="button is-link" @click="importCsv">{{ $t('imports.import') }}</button>
               </p>
             </b-field>
           </div>
         </div>
       </div>
       <div v-else>
-        <b-message type="is-success">Файл заимпортирован успешно</b-message>
+        <b-message type="is-success">{{ $t('imports.file_successfully_imported') }}</b-message>
       </div>
     </section>
     <section class="mt-30" v-if="this.$store.state.imports.imported.length">
@@ -52,17 +52,17 @@
         </template>
         <template slot-scope="props" slot="header">
           <b-select class="header-select" @input="selectHeader">
-            <option value="-1">Игнорировать</option>
-            <option value="original_title">Титул</option>
-            <option value="amount">Сумма</option>
-            <option value="paid_at">Дата</option>
+            <option value="-1">{{ $t('imports.ignore') }}</option>
+            <option value="original_title">{{ $t('imports.title') }}</option>
+            <option value="amount">{{ $t('imports.sum') }}</option>
+            <option value="paid_at">{{ $t('imports.date') }}</option>
           </b-select>
         </template>
       </b-table>
 
       <b-field v-if="this.$store.state.imports.imported.length">
         <p class="control">
-          <button class="button is-link" @click="addTransactions">Добавить</button>
+          <button class="button is-link" @click="addTransactions">{{ $t('imports.add') }}</button>
         </p>
       </b-field>
     </section>

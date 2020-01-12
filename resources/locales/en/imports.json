@@ -1,0 +1,12 @@
+{
+  "csv_import": "Import from .csv",
+  "separator": "Separator",
+  "upload_file": "Upload file",
+  "import": "Import",
+  "file_successfully_imported": "Import has been successful",
+  "ignore": "Ignore",
+  "title": "Title",
+  "sum": "Sum",
+  "date": "Date",
+  "add": "Add"
+}

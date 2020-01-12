@@ -1,46 +1,46 @@
 <template>
   <div>
     <h1 class="title">
-      Транзакции
-      <a class="button is-small is-link is-rounded" @click="add">Добавить новую</a>
-      <a class="button is-small is-link is-rounded" @click="format">Форматировать</a>
-      <a class="button is-small is-danger is-rounded" @click="reset">Сбросить</a>
+      {{ $t('common.transactions') }}
+      <a class="button is-small is-link is-rounded" @click="add">{{ $t('transactions.add_new') }}</a>
+      <a class="button is-small is-link is-rounded" @click="format">{{ $t('transactions.do_format') }}</a>
+      <a class="button is-small is-danger is-rounded" @click="reset">{{ $t('transactions.reset') }}</a>
       <div class="float-right">
         <a
           :class="['button is-small is-rounded ' + (this.source === 'all' ? 'is-dark' : '')]"
           @click="showAll"
-        >Всего: {{ this.$store.state.transactions.transactions.length }}</a>
+        >{{ $t('transactions.total') }}: {{ this.$store.state.transactions.transactions.length }}</a>
         <a
           :class="['button is-small is-rounded ' + (this.source === 'unformatted' ? 'is-dark' : '')]"
           @click="showUnformatted"
-        >Не отформатированные: {{ this.$store.state.transactions.unformatted.length }}</a>
+        >{{ $t('transactions.not_formatted') }}: {{ this.$store.state.transactions.unformatted.length }}</a>
         <a
           :class="['button is-small is-rounded ' + (this.source === 'incomes' ? 'is-dark' : '')]"
           @click="showIncomes"
-        >Доходы: {{ this.$store.state.transactions.incomes.length }}</a>
+        >{{ $t('transactions.income') }}: {{ this.$store.state.transactions.incomes.length }}</a>
       </div>
     </h1>
     <section class="new-transaction-section" v-if="showAdd">
       <div class="columns">
         <div class="column is-2">
-          <b-field label="Дата">
-            <b-datepicker placeholder="Выбери дату" v-model="newTransaction.date"></b-datepicker>
+          <b-field :label="$t('transactions.date')">
+            <b-datepicker :placeholder="$t('common.select_date')" v-model="newTransaction.date"></b-datepicker>
           </b-field>
         </div>
         <div class="column is-5">
-          <b-field label="Титул">
+          <b-field :label="$t('transactions.title')">
             <b-input v-model="newTransaction.title"></b-input>
           </b-field>
         </div>
         <div class="column is-2">
-          <b-field label="Сумма">
+          <b-field :label="$t('transactions.sum')">
             <b-input v-model="newTransaction.amount"></b-input>
           </b-field>
         </div>
         <div class="column is-2">
-          <b-field label="Категория">
+          <b-field :label="$t('common.category')">
             <b-select
-              placeholder="Без категории"
+              :placeholder="$t('common.no_category')"
               class="mt-15"
               v-model="newTransaction.category_id"
             >
@@ -53,8 +53,8 @@
           </b-field>
         </div>
         <div class="column is-1">
-          <b-field label="Действия">
-            <a class="button is-success" v-if="canBeSaved" @click="save">Добавить</a>
+          <b-field :label="$t('transactions.actions')">
+            <a class="button is-success" v-if="canBeSaved" @click="save">{{ $t('transactions.add') }}</a>
           </b-field>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default {
       this.source = "incomes";
     },
     reset() {
-      if (confirm("Ты уверен?")) {
+      if (confirm($t('transactions.are_you_sure'))) {
         this.$store.dispatch("reset");
       }
     },

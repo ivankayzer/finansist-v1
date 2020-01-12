@@ -1,0 +1,17 @@
+{
+  "title": "Title",
+  "sum": "Sum",
+  "format": "Format",
+  "ignore": "Ignore",
+  "immutable": "Immutable",
+  "add_new": "Add new",
+  "do_format": "Format",
+  "reset": "Reset",
+  "total": "Total",
+  "not_formatted": "Not formatted",
+  "income": "Income",
+  "date": "Date",
+  "actions": "Actions",
+  "add": "Add",
+  "are_you_sure": "Are you sure?"
+}
