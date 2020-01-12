@@ -12,7 +12,7 @@
         <b-field>
             <p class="control">
                 <button class="button is-link" @click="login">
-                  {{ $t('common.sign-in') }}
+                  {{ $t('nav.sign-in') }}
                 </button>
             </p>
         </b-field>
