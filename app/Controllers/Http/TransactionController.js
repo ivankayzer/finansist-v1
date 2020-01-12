@@ -71,7 +71,7 @@ class TransactionController {
 
     let categoryModel = null;
 
-    if (category !== Antl.formatMessage('common.no_category')) {
+    if (category !== Antl.forLocale(user.language).formatMessage('common.no_category')) {
       const Category = use("App/Models/Category");
       categoryModel = await Category.query()
         .where("name", category)
@@ -80,7 +80,7 @@ class TransactionController {
 
     let transactions = [];
 
-    if (category !== Antl.formatMessage('common.no_category')) {
+    if (category !== Antl.forLocale(user.language).formatMessage('common.no_category')) {
       transactions = await user
         .transactions()
         .expenses()

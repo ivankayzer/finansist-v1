@@ -16,6 +16,7 @@ const Route = use('Route');
 Route.post('/login', 'UserController.login');
 Route.post('/register', 'UserController.register');
 Route.post('/getUser', 'UserController.getUser');
+Route.post('/changeLocale', 'UserController.changeLocale');
 
 Route.get('/categories', 'CategoryController.all');
 Route.post('/categories/add', 'CategoryController.add');

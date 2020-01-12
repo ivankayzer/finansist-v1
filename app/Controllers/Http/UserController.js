@@ -45,6 +45,13 @@ class UserController {
       return Antl.formatMessage('auth.invalid_jwt');
     }
   }
+
+  async changeLocale({ request, auth }) {
+    const user = await auth.getUser();
+
+    user.language = request.post().locale;
+    user.save();
+  }
 }
 
 module.exports = UserController;

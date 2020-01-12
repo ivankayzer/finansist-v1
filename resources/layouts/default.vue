@@ -33,7 +33,7 @@ export default {
       !Object.keys(this.$store.state.auth.user).length &&
       localStorage.getItem('token')
     ) {
-      this.$store.dispatch('getUser')
+      this.$store.dispatch('getUser').then(() =>  this.$i18n.setLocale(this.$store.state.auth.user.language))
     }
     this.$store.commit('init')
   },

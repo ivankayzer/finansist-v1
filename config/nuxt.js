@@ -53,6 +53,7 @@ module.exports = {
       {
         locales: ['en', 'ru'],
         defaultLocale: 'en',
+        strategy: 'no_prefix',
         vueI18n: {
           fallbackLocale: 'en',
           messages: translationLoader.getTranslations()

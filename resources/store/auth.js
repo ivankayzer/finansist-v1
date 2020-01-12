@@ -31,7 +31,7 @@ const auth = {
     },
     getUser({ commit }, token) {
       commit('startLoading');
-      axios.post('/getUser', token).then(response => {
+      return axios.post('/getUser', token).then(response => {
         commit('setUser', response.data);
         commit('stopLoading');
       });
@@ -41,6 +41,9 @@ const auth = {
       commit('removeUser');
       localStorage.removeItem('token');
       commit('stopLoading');
+    },
+    changeLocale({ commit }, locale) {
+      axios.post('/changeLocale', { locale });
     },
   },
 };
