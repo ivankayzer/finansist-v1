@@ -1,19 +1,20 @@
-const Papa = require('papaparse');
-const fs = require('fs');
-const path = require('path');
+const Papa = require("papaparse");
+const fs = require("fs");
+const path = require("path");
+const ImportFactory = require("../../Services/Imports/ImportFactory");
 
-const Helpers = use('Helpers');
-const collect = require('collect.js');
+const Helpers = use("Helpers");
+const collect = require("collect.js");
 
 class ImportController {
   async import({ request, auth }) {
-    const csv = request.file('csv');
+    const csv = request.file("csv");
 
     const filename = this.generateFileName(csv._clientName);
 
-    await csv.move(Helpers.tmpPath('uploads'), {
+    await csv.move(Helpers.tmpPath("uploads"), {
       name: filename,
-      overwrite: true,
+      overwrite: true
     });
 
     if (!csv.moved()) {
@@ -22,7 +23,7 @@ class ImportController {
 
     const file = fs.readFileSync(
       path.join(csv._location, csv._fileName),
-      'utf8'
+      "utf8"
     );
 
     const output = await Papa.parse(file);
@@ -35,7 +36,7 @@ class ImportController {
       return;
     }
 
-    let filename = csv.split('.');
+    let filename = csv.split(".");
 
     filename = `${filename[0]}-${Math.round(new Date().getTime() / 1000)}.${
       filename[1]
@@ -48,43 +49,43 @@ class ImportController {
     const removeFile = Helpers.promisify(fs.unlink);
     const { columns, filename } = request.all();
     const output = await Papa.parse(
-      fs.readFileSync(path.join(Helpers.tmpPath('uploads'), filename), 'utf8')
+      fs.readFileSync(path.join(Helpers.tmpPath("uploads"), filename), "utf8")
     );
-    const Transaction = use('App/Models/Transaction');
+
+    const Transaction = use("App/Models/Transaction");
     const user = await auth.getUser();
 
     let existingTransactions = await user
       .transactions()
-      .select('uid')
+      .select("uid")
       .fetch();
     existingTransactions = collect(existingTransactions.rows)
-      .pluck('uid')
+      .pluck("uid")
       .unique();
 
     output.data
       .filter(transaction => transaction.length > 1)
       .forEach(async transaction => {
-        const model = new Transaction();
+        let model = new Transaction();
 
-        for (const key in columns) {
-          if (columns[key] === 'paid_at') {
-            let [day, month, year] = transaction[key].split('-')
-            model[columns[key]] = `${year}-${month}-${day}`;
-          } else {
-            model[columns[key]] = transaction[key];
-          }
-        }
+        const importer = ImportFactory.make(
+          filename,
+          model,
+          transaction,
+          columns
+        );
+        model = importer.fillModel();
 
         const uid = model.generateUid();
 
-        if (existingTransactions.contains(uid)) {
+        if (!model.original_title || existingTransactions.contains(uid)) {
           return;
         }
 
         await user.transactions().save(model);
       });
 
-    removeFile(path.join(Helpers.tmpPath('uploads'), filename));
+    removeFile(path.join(Helpers.tmpPath("uploads"), filename));
   }
 }
 
